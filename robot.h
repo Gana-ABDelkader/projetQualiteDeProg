@@ -1,12 +1,14 @@
 #ifndef ROBOT_H
 #define ROBOT_H
 
+#include "position.h"
+
 
 class robot
 {public:
-    //constructeur avec position ligne et colonne dans un terrain
-    //renvoie sa position
-    //void setPosition(...) ;
+    robot(const position& pos) ;
+    position positionSurTerrain() const;
+    void setPosition(const position& pos) ;
     bool detectObstacleFront() const;
     bool detectObstacleLeft() const;
     bool detectObstacleRight() const;
@@ -17,7 +19,7 @@ class robot
     //ajoute des observateurs
     //notifie chaque observteurs (faut faire la manip d'etre notifier et tout)
 private:
-    //position
+    position d_position;
     //terrain
     //le tableau des observateurs
 };
