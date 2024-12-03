@@ -2,7 +2,6 @@
 #define READ_H
 
 #include <iostream>
-#include <vector>
 
 class terrain;
 
@@ -12,7 +11,7 @@ class read
 {
 public:
     virtual ~read() =default;
-    virtual terrain readTerrain(const std::istream& ist) const =0;
+    virtual terrain readTerrain(std::istream& ist) const =0;
 };
 
 
@@ -20,7 +19,7 @@ public:
 class readSimple : public read
 {
 public:
-    terrain readTerrain(const std::istream& ist) const override;
+    terrain readTerrain(std::istream& ist) const override;
 };
 
 
@@ -28,7 +27,7 @@ public:
 class readAmeliore1 : public read
 {
 public:
-    terrain readTerrain(const std::istream& ist) const override;
+    terrain readTerrain(std::istream& ist) const override;
 };
 
 
@@ -36,7 +35,7 @@ public:
 class readAmeliore2 : public read
 {
 public:
-    terrain readTerrain(const std::istream& ist) const override;
+    terrain readTerrain(std::istream& ist) const override;
 };
 
 }
