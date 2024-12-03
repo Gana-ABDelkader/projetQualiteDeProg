@@ -4,13 +4,15 @@
 #include <iostream>
 #include <vector>
 
+class terrain;
+
 namespace fichiers {
 
 class read
 {
 public:
     virtual ~read() =default;
-    virtual std::vector<std::vector<bool>> readTerrain(const std::istream& ist) const =0;
+    virtual terrain readTerrain(const std::istream& ist) const =0;
 };
 
 
@@ -18,7 +20,7 @@ public:
 class readSimple : public read
 {
 public:
-    std::vector<std::vector<bool>> readTerrain(const std::istream& ist) const override;
+    terrain readTerrain(const std::istream& ist) const override;
 };
 
 
@@ -26,7 +28,7 @@ public:
 class readAmeliore1 : public read
 {
 public:
-    std::vector<std::vector<bool>> readTerrain(const std::istream& ist) const override;
+    terrain readTerrain(const std::istream& ist) const override;
 };
 
 
@@ -34,7 +36,7 @@ public:
 class readAmeliore2 : public read
 {
 public:
-    std::vector<std::vector<bool>> readTerrain(const std::istream& ist) const override;
+    terrain readTerrain(const std::istream& ist) const override;
 };
 
 }
