@@ -7,6 +7,8 @@ class position
     position(int posLigne, int posColonne) ;
     int positionLigne() const;
     int positionColonne() const;
+    void setLigne(int ligne) ;
+    void setColonne(int colonne) ;
     
 private:
     int d_posLigne, d_posColonne;

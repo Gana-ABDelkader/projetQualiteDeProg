@@ -2,13 +2,18 @@
 #define ROBOT_H
 
 #include "position.h"
+#include "terrain.h"
 
 
 class robot
 {public:
-    robot(const position& pos) ;
+    robot(const position& pos, const terrain& terrain) ;
+
     position positionSurTerrain() const;
+    terrain terrainDeLabyrinthe() const;
+
     void setPosition(const position& pos) ;
+    //set ligne et set colonne ?
     bool detectObstacleFront() const;
     bool detectObstacleLeft() const;
     bool detectObstacleRight() const;
@@ -20,8 +25,9 @@ class robot
     //notifie chaque observteurs (faut faire la manip d'etre notifier et tout)
 private:
     position d_position;
-    //terrain
+    terrain d_terrain;
     //le tableau des observateurs
+    
 };
 
 #endif

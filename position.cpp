@@ -13,3 +13,13 @@ int position::positionColonne() const
 {
     return d_posColonne;
 }
+
+void position::setLigne(int ligne)
+{
+    d_posLigne = ligne;
+}
+
+void position::setColonne(int colonne)
+{
+    d_posColonne = colonne;
+}
