@@ -3,6 +3,7 @@
 
 #include "position.h"
 #include <vector>
+#include<iostream>
 
 class terrain
 {
@@ -13,12 +14,12 @@ class terrain
         position caseEntree() const;
         position caseSortie() const;
         bool estUnMur(const position& p) const;
-        void litUnTerrain();
-        void ecritUnTerrain() const;
+        void litUnTerrain(std::istream& ist);
+        void ecritUnTerrain(std::ostream& ost) const;
 
 
     private : 
-        std::vector<bool> d_terrain;
+        std::vector<std::vector<bool>> d_terrain; // les murs sont à true, les cases vides à false
         position d_entree;
         position d_sortie;
 };
