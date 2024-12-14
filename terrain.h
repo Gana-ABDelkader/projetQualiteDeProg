@@ -8,7 +8,7 @@
 class terrain
 {
     public :
-        terrain(const std::vector<bool>& terrain,const position& entree,const position& sortie);
+        terrain(const std::vector<std::vector<bool>>& terrain,const position& entree,const position& sortie);
         terrain();
 
         position caseEntree() const;

@@ -24,15 +24,7 @@ public:
 
 
 
-class readAmeliore1 : public read
-{
-public:
-    terrain readTerrain(std::istream& ist) const override;
-};
-
-
-
-class readAmeliore2 : public read
+class readAmeliore : public read
 {
 public:
     terrain readTerrain(std::istream& ist) const override;

@@ -2,7 +2,7 @@
 #include"read.h"
 #include"save.h"
 
-terrain::terrain(const std::vector<bool>& terrain,const position& entree,const position& sortie)
+terrain::terrain(const std::vector<std::vector<bool>>& terrain,const position& entree,const position& sortie)
  : d_terrain{terrain}, d_entree{entree}, d_sortie{sortie}
 {}
 
