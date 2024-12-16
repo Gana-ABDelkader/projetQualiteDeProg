@@ -3,26 +3,10 @@
 
 #include "position.h"
 
-std::vector<bool> readVectorSimple::readLigne(istream& ist/*,position& entree, position& sortie*/) const
+namespace fichier
 {
-    char caractere;
-    std::vector<bool> ligne;
-    do
-    {
-       ist>>caractere;
-       if(caractere=='X')
-       {
-        ligne.push_back(true);
-       }
-       else
-       {
-        ligne.push_back(false);
-       }
-    } while (caractere != finDeLigne);
-    return ligne;
-}
-
-std::vector<bool> readVectorAmeliore::readLigne(istream& ist/*,position& entree, position& sortie*/) const
+    
+std::vector<bool> readVector::readLigne(istream& ist/*,position& entree, position& sortie*/) const
 {
     char caractere;
     std::vector<bool> ligne;
@@ -39,4 +23,6 @@ std::vector<bool> readVectorAmeliore::readLigne(istream& ist/*,position& entree,
        }
     } while (caractere != finDeLigne);
     return ligne;
+}
+
 }

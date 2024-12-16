@@ -10,29 +10,10 @@ namespace fichiers {
 
 class readVector
 {
-public:
-    virtual ~read() =default;
-    virtual std::vector<bool> readLigne(std::istream& ist/*,position& entree, position& sortie*/) const =0;
     constexpr char finDeLigne{'\n'};
-};
-
-
-
-class readVectorSimple : public readVector
-{
 public:
-    std::vector<bool> readLigne(std::istream& ist/*,position& entree, position& sortie*/) const override;
+    std::vector<bool> readLigne(std::istream& ist/*,position& entree, position& sortie*/) const;
 };
-
-
-
-class readVectorAmeliore : public readVector
-{
-public:
-    std::vector<bool> readLigne(std::istream& ist/*,position& entree, position& sortie*/
-    ) const override;
-};
-
 
 }
 
