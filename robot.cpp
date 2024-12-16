@@ -40,7 +40,6 @@ bool robot::detectObstacleRight() const
 
 void robot::forward()
 {
-    //faut il verifier qu'on depasse pas les limites ??
     d_position.setLigne(d_position.positionLigne()-1);
 }
 

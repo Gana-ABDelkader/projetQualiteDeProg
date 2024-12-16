@@ -13,7 +13,7 @@ class robot
     terrain terrainDeLabyrinthe() const;
 
     void setPosition(const position& pos) ;
-    //set ligne et set colonne ?
+    
     bool detectObstacleFront() const;
     bool detectObstacleLeft() const;
     bool detectObstacleRight() const;
