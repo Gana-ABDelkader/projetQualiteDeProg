@@ -13,23 +13,15 @@ namespace fichier
 terrain readSimple::readTerrain(std::istream& ist) const
 {
     std::vector<vector<bool>> labyrinthe;
-    readVector ligneSimple{};
+    readVector ligne{};
+    position entree;
+    position sortie;
+    int i=0;
     while(!ist.eof()) //tant que ist n'est pas a la fin du fichier
     {
-        labyrinthe.push_back(ligneSimple.readLigne(ist));
+        labyrinthe.push_back(ligne.readLigne(ist),entree,sortie,i);
+        i++;
     }
-    return terrain{labyrinthe,position{0,0}, position{0,0}};    //il faut trouver comment on defini l'entree et la sortie
+    return terrain{labyrinthe,entree, sortie};    //il faut trouver comment on defini l'entree et la sortie
 }
-
-terrain readAmeliore::readTerrain(std::istream& ist) const
-{
-    std::vector<vector<bool>> labyrinthe;
-    readVector ligneSimple{};
-    while(!ist.eof()) //tant que on est pas a la fin du fichier
-    {
-        labyrinthe.push_back(ligneSimple.readLigne(ist));
-    }
-    return terrain{labyrinthe,position{0,0}, position{0,0}};    //il faut trouver comment on defini l'entree et la sortie
-}
-
 }

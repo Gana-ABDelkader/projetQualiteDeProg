@@ -10,25 +10,9 @@ namespace fichiers {
 class read
 {
 public:
-    virtual ~read() =default;
-    virtual terrain readTerrain(std::istream& ist) const =0;
+    terrain readTerrain(std::istream& ist) const ;
 };
 
-
-
-class readSimple : public read
-{
-public:
-    terrain readTerrain(std::istream& ist) const override;
-};
-
-
-
-class readAmeliore : public read
-{
-public:
-    terrain readTerrain(std::istream& ist) const override;
-};
 
 }
 

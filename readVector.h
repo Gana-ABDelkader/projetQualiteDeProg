@@ -12,7 +12,7 @@ class readVector
 {
     constexpr char finDeLigne{'\n'};
 public:
-    std::vector<bool> readLigne(std::istream& ist/*,position& entree, position& sortie*/) const;
+    std::vector<bool> readLigne(std::istream& ist,position& entree, position& sortie,int i) const;
 };
 
 }
