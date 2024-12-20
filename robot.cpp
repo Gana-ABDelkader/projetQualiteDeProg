@@ -1,7 +1,11 @@
 #include "robot.h"
 
-robot::robot(const position& pos, const terrain& terrain) :
-    d_position{pos}, d_terrain{terrain}
+robot::robot() :
+    d_position{0,0}, d_direction{HAUT}
+{}
+
+robot::robot(const position& pos,direction d, const terrain& terrain) :
+    d_position{pos}, d_direction{d}, d_terrain{terrain}
 {}
 
 position robot::positionSurTerrain() const
@@ -9,14 +13,32 @@ position robot::positionSurTerrain() const
     return d_position;
 }
 
+robot::direction robot::directionSurTerrain() const
+{
+    return d_direction;
+}
+
 terrain robot::terrainDeLabyrinthe() const
 {
     return d_terrain;
 }
 
-void robot::setPosition(const position& pos) 
+robot& robot::setPosition(const position& pos) 
 {
     d_position = pos;
+    return *this;
+}
+
+robot& robot::setDirection(direction d) 
+{
+    d_direction = d;
+    return *this;
+}
+
+robot& robot::setTerrain(const terrain& terrain) 
+{
+    d_terrain = terrain;
+    return *this;
 }
 
 bool robot::detectObstacleFront() const
@@ -38,17 +60,20 @@ bool robot::detectObstacleRight() const
     return d_terrain.estUnMur(pos);
 }
 
-void robot::forward()
+robot& robot::forward()
 {
     d_position.setLigne(d_position.positionLigne()-1);
+    return *this;
 }
 
-void robot::turnLeft() 
+robot& robot::turnLeft() 
 {
-    d_position.setColonne(d_position.positionColonne()-1);
+    setDirection(GAUCHE);
+    return *this;
 }
 
-void robot::turnRight() 
+robot& robot::turnRight() 
 {
-    d_position.setColonne(d_position.positionColonne()+1);
+    setDirection(DROITE);
+    return *this;
 }
