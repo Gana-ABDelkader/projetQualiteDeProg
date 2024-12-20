@@ -3,7 +3,7 @@
 
 #include "position.h"
 
-namespace fichier
+namespace fichiers
 {
     
 std::vector<bool> readVector::readLigne(istream& ist,position& entree, position& sortie, int i) const
