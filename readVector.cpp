@@ -1,30 +1,30 @@
 #include "readVector.h"
 #include <vector>
-
+#include <string>
 #include "position.h"
 
-namespace fichier
+namespace fichiers
 {
     
-std::vector<bool> readVector::readLigne(istream& ist,position& entree, position& sortie, int i) const
+std::vector<bool> readVector::readLigne(std::istream& ist,position& entree, position& sortie, int i) const
 {
     char caractere;
     std::vector<bool> ligne;
-    int j=0;
-    do
+    std::string ISTligne;
+    std::getline(ist,ISTligne);
+    for(int j=0; j<ISTligne.size();j++)
     {
-       ist>>caractere;
-       if(caractere=='.')
+       if(ISTligne[j]=='.')
        {
         ligne.push_back(false);
        }
-       else if(caractere=='⎆')
+       else if(ISTligne[j]=='⎆')
        {
         entree.setColonne(j);
         entree.setLigne(i);
         ligne.push_back(false);
        }
-       else if(caractere=='🔙')
+       else if(ISTligne[j]=='🔙')
        {
         sortie.setColonne(j);
         entree.setLigne(i);
@@ -34,8 +34,7 @@ std::vector<bool> readVector::readLigne(istream& ist,position& entree, position&
        {
         ligne.push_back(true);
        }
-       j++;
-    } while (caractere != finDeLigne);
+    }
     return ligne;
 }
 

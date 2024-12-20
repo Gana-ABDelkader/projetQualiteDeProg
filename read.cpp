@@ -7,19 +7,19 @@
 #include "readVector.h"
 #include <vector>
 
-namespace fichier
+namespace fichiers
 {
 
-terrain readSimple::readTerrain(std::istream& ist) const
+terrain read::readTerrain(std::istream& ist) const
 {
-    std::vector<vector<bool>> labyrinthe;
+    std::vector<std::vector<bool>> labyrinthe;
     readVector ligne{};
-    position entree;
-    position sortie;
+    position entree {0,0};
+    position sortie {0,0};
     int i=0;
     while(!ist.eof()) //tant que ist n'est pas a la fin du fichier
     {
-        labyrinthe.push_back(ligne.readLigne(ist),entree,sortie,i);
+        labyrinthe.push_back(ligne.readLigne(ist,entree,sortie,i));
         i++;
     }
     return terrain{labyrinthe,entree, sortie};    //il faut trouver comment on defini l'entree et la sortie
