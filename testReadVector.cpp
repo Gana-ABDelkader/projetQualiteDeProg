@@ -1,4 +1,4 @@
-#include "ReadVector.h"
+﻿#include "ReadVector.h"
 #include "doctest.h"
 #include <sstream>
 #include <string>
@@ -6,18 +6,19 @@
 #include "position.h"
 
 
-void test_Entree(const position& entree1)
+
+void test_Entree(const position& entree1, int IdLigne)
 {
-    position entreeLigne{3,2};
-    REQUIRE_EQ(entree1.positionLigne,entreeLigne.positionLigne);
-    REQUIRE_EQ(entree1.positionColonne,entreeLigne.positionColonne);
+    position entreeLigne{IdLigne,3};
+    REQUIRE_EQ(entree1.positionLigne(),entreeLigne.positionLigne());
+    REQUIRE_EQ(entree1.positionColonne(),entreeLigne.positionColonne());
 }
 
-void test_Sortie(const position& sortie1)
+void test_Sortie(const position& sortie1, int IdLigne)
 {
-    position sortieLigne{16,2};
-    REQUIRE_EQ(sortie1.positionLigne,sortieLigne.positionLigne);
-    REQUIRE_EQ(sortie1.positionColonne,sortieLigne.positionColonne);
+    position sortieLigne{IdLigne,16};
+    REQUIRE_EQ(sortie1.positionLigne(),sortieLigne.positionLigne());
+    REQUIRE_EQ(sortie1.positionColonne(),sortieLigne.positionColonne());
 }
 
 void test_ValeursTableau(const std::vector<bool>& t)
@@ -38,25 +39,25 @@ void test_TailleTableau(const std::vector<bool>& t)
 
 TEST_CASE("Lire une ligne est correcte")
 {
-    position entree{0,0};
-    position sortie{0,0};
+    position entree {0,0};
+    position sortie {0,0};
     SUBCASE("Si la ligne est vide")
     {
         SUBCASE("Le tableau est vide")
         {
             std::string ligne="";
             std::istringstream ist {ligne};
-            fichiers::readVector r;
+            fichiers::readVectorSimpleAmeliore r;
             std::vector<bool> t= r.readLigne(ist,entree,sortie,0);
             REQUIRE_EQ(t.size(),0);
         }
     }
     SUBCASE("Si la ligne est caractères simple")
     {
-        std::string ligne="X..⎆...XXXX.....🔙..X";
         int IdLigne=2;
+        std::string ligne="X..⎆...XXXX.....🔙..X";
         std::istringstream ist {ligne};
-        fichiers::readVector r;
+        fichiers::readVectorSimpleAmeliore r;
         std::vector<bool> t= r.readLigne(ist,entree,sortie,IdLigne);
         SUBCASE("Le tableau a la bonne taille")
         {
@@ -70,21 +71,21 @@ TEST_CASE("Lire une ligne est correcte")
         {
             SUBCASE("La valeur de entrée est correcte")
             {
-                test_Entree(entree);
+                test_Entree(entree,IdLigne);
             }
             SUBCASE("La valeur de sortie est correcte")
             {
-                test_Sortie(sortie);
+                test_Sortie(sortie, IdLigne);
             }
         }
-        
+
     }
     SUBCASE("Si la ligne est caractères ameliore1")
     {
         std::string ligne="|..⎆...+--+.....🔙..|";
         int IdLigne=2;
         std::istringstream ist {ligne};
-        fichiers::readVector r;
+        fichiers::readVectorSimpleAmeliore r;
         std::vector<bool> t= r.readLigne(ist,entree,sortie,IdLigne);
         SUBCASE("Le tableau a la bonne taille")
         {
@@ -98,11 +99,11 @@ TEST_CASE("Lire une ligne est correcte")
         {
             SUBCASE("La valeur de entrée est correcte")
             {
-                test_Entree(entree);
+                test_Entree(entree,IdLigne);
             }
             SUBCASE("La valeur de sortie est correcte")
             {
-                test_Sortie(sortie);
+                test_Sortie(sortie,IdLigne);
             }
         }
     }
@@ -111,7 +112,7 @@ TEST_CASE("Lire une ligne est correcte")
         std::string ligne="┃..⎆...┗━━┛.....🔙..┃";
         int IdLigne=2;
         std::istringstream ist {ligne};
-        fichiers::readVector r;
+        fichiers::readVectorAmeliore2 r;
         std::vector<bool> t= r.readLigne(ist,entree,sortie,IdLigne);
         SUBCASE("Le tableau a la bonne taille")
         {
@@ -125,13 +126,13 @@ TEST_CASE("Lire une ligne est correcte")
         {
             SUBCASE("La valeur de entrée est correcte")
             {
-                test_Entree(entree);
+                test_Entree(entree,IdLigne);
             }
             SUBCASE("La valeur de sortie est correcte")
             {
-                test_Sortie(sortie);
+                test_Sortie(sortie,IdLigne);
             }
         }
     }
-    
+
 }
