@@ -4,8 +4,6 @@
 #include "position.h"
 #include "terrain.h"
 
-const 
-
 class robot
 {public:
 
