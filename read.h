@@ -1,4 +1,4 @@
-#ifndef READ_H
+﻿#ifndef READ_H
 #define READ_H
 
 #include <iostream>
@@ -10,8 +10,22 @@ namespace fichiers {
 class read
 {
 public:
-    terrain readTerrain(std::istream& ist) const ;
+    virtual ~read() =default;
+    virtual terrain readTerrain(std::istream& ist) const =0;
 };
+
+class readSimpleAmeliore : public read
+{
+public:
+    terrain readTerrain(std::istream& ist) const override;
+};
+
+class readAmeliore2 : public read
+{
+public:
+    terrain readTerrain(std::istream& ist) const override;
+};
+
 
 
 }

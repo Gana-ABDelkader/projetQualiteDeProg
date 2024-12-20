@@ -1,4 +1,4 @@
-#ifndef READVECTOR_H
+﻿#ifndef READVECTOR_H
 #define READVECTOR_H
 
 #include <iostream>
@@ -12,7 +12,20 @@ namespace fichiers {
 class readVector
 {
 public:
-    std::vector<bool> readLigne(std::istream& ist,position& entree, position& sortie,int i) const;
+    virtual ~readVector()=default;
+    virtual std::vector<bool> readLigne(std::istream& ist,position& entree, position& sortie,int i) const=0;
+};
+
+class readVectorSimpleAmeliore : public readVector
+{
+public:
+    std::vector<bool> readLigne(std::istream& ist,position& entree, position& sortie,int i) const override;
+};
+
+class readVectorAmeliore2 : public readVector
+{
+public:
+    std::vector<bool> readLigne(std::istream& ist,position& entree, position& sortie,int i) const override;
 };
 
 }
