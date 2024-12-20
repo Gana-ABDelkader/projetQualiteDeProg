@@ -63,27 +63,24 @@ bool robot::detectObstacle() const
 
 }
 
-robot& robot::forwardUp()
+robot& robot::move()
 {
-    d_position.setLigne(d_position.positionLigne()-1);
-    return *this;
-}
-
-robot& robot::forwardDown()
-{
-    d_position.setLigne(d_position.positionLigne()+1);
-    return *this;
-}
-
-robot& robot::forwardLeft()
-{
-    d_position.setColonne(d_position.positionColonne()-1);
-    return *this;
-}
-
-robot& robot::forwardRight()
-{
-    d_position.setColonne(d_position.positionColonne()+1);
+    position pos;
+    switch(d_direction) {
+        case HAUT:
+        d_position.setLigne(d_position.positionLigne()-1);
+        break;
+        case BAS:
+        d_position.setLigne(d_position.positionLigne()+1);
+        break;
+        case DROITE:
+        d_position.setColonne(d_position.positionColonne()+1);
+        break;
+        case GAUCHE:
+        d_position.setColonne(d_position.positionColonne()-1);
+        break;
+  
+    }
     return *this;
 }
 

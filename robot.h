@@ -27,11 +27,8 @@ class robot
     
     bool detectObstacle() const;
     
-    robot& forwardUp() ;
-    robot& forwardDown() ;
-    robot& forwardLeft() ;
-    robot& forwardRight() ;
-
+    robot& move() ;
+    
     robot& goUp() ;
     robot& goDown() ;
     robot& turnLeft() ;
