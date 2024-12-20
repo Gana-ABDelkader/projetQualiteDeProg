@@ -17,6 +17,8 @@ class terrain
         void litUnTerrain(std::istream& ist);
         void ecritUnTerrain(std::ostream& ost) const;
 
+        void changeenMur(const position& p);
+
 
     private : 
         std::vector<std::vector<bool>> d_terrain; // les murs sont à true, les cases vides à false
