@@ -1,7 +1,7 @@
 #include "robot.h"
 
 robot::robot() :
-    d_position{0,0}, d_direction{HAUT}
+    d_position{}, d_direction{HAUT}
 {}
 
 robot::robot(const position& pos,direction d, const terrain& terrain) :

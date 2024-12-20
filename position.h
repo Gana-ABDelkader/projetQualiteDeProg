@@ -4,6 +4,7 @@
 
 class position
 {public:
+    position();
     position(int posLigne, int posColonne) ;
     int positionLigne() const;
     int positionColonne() const;

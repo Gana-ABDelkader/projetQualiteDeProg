@@ -1,5 +1,9 @@
 #include "position.h"
 
+position::position() :
+    d_posLigne{0}, d_posColonne{0}
+{}
+
 position::position(int posLigne, int posColonne) :
     d_posLigne{posLigne}, d_posColonne{posColonne}
 {}
