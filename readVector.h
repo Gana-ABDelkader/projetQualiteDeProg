@@ -11,7 +11,6 @@ namespace fichiers {
 
 class readVector
 {
-    static constexpr char finDeLigne{'\n'};
 public:
     std::vector<bool> readLigne(std::istream& ist,position& entree, position& sortie,int i) const;
 };
