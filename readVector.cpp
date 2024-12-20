@@ -12,7 +12,7 @@ std::vector<bool> readVector::readLigne(std::istream& ist,position& entree, posi
     std::vector<bool> ligne;
     std::string ISTligne;
     std::getline(ist,ISTligne);
-    for(int j=0; j<ligne.size();j++)
+    for(int j=0; j<ISTligne.size();j++)
     {
        if(ISTligne[j]=='.')
        {
