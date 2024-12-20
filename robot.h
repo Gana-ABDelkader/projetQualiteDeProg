@@ -9,6 +9,7 @@ class robot
 
     enum direction {
         HAUT,
+        BAS,
         GAUCHE,
         DROITE
     };
@@ -24,10 +25,15 @@ class robot
     robot& setDirection(direction d) ;
     robot& setTerrain(const terrain& terrain) ;
     
-    bool detectObstacleFront() const;
-    bool detectObstacleLeft() const;
-    bool detectObstacleRight() const;
-    robot& forward() ;
+    bool detectObstacle() const;
+    
+    robot& forwardUp() ;
+    robot& forwardDown() ;
+    robot& forwardLeft() ;
+    robot& forwardRight() ;
+
+    robot& goUp() ;
+    robot& goDown() ;
     robot& turnLeft() ;
     robot& turnRight() ;
 

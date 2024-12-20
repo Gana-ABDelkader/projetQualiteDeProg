@@ -41,28 +41,61 @@ robot& robot::setTerrain(const terrain& terrain)
     return *this;
 }
 
-bool robot::detectObstacleFront() const
+bool robot::detectObstacle() const
 {
-    position pos{d_position.positionLigne()-1,d_position.positionColonne()};
+    position pos;
+    switch(d_direction) {
+        case HAUT:
+        pos = {d_position.positionLigne()-1,d_position.positionColonne()};
+        break;
+        case BAS:
+        pos = {d_position.positionLigne()+1,d_position.positionColonne()};
+        break;
+        case DROITE:
+        pos = {d_position.positionLigne(),d_position.positionColonne()+1};
+        break;
+        case GAUCHE:
+        pos = {d_position.positionLigne(),d_position.positionColonne()-1};
+        break;
+  
+    }
     return d_terrain.estUnMur(pos);
 
 }
 
-bool robot::detectObstacleLeft() const
-{
-    position pos{d_position.positionLigne(),d_position.positionColonne()-1};
-    return d_terrain.estUnMur(pos);
-}
-
-bool robot::detectObstacleRight() const
-{
-    position pos{d_position.positionLigne(),d_position.positionColonne()+1};
-    return d_terrain.estUnMur(pos);
-}
-
-robot& robot::forward()
+robot& robot::forwardUp()
 {
     d_position.setLigne(d_position.positionLigne()-1);
+    return *this;
+}
+
+robot& robot::forwardDown()
+{
+    d_position.setLigne(d_position.positionLigne()+1);
+    return *this;
+}
+
+robot& robot::forwardLeft()
+{
+    d_position.setColonne(d_position.positionColonne()-1);
+    return *this;
+}
+
+robot& robot::forwardRight()
+{
+    d_position.setColonne(d_position.positionColonne()+1);
+    return *this;
+}
+
+robot& robot::goUp() 
+{
+    setDirection(HAUT);
+    return *this;
+}
+
+robot& robot::goDown() 
+{
+    setDirection(BAS);
     return *this;
 }
 
