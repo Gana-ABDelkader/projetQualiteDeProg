@@ -21,7 +21,7 @@ class robot
     direction directionSurTerrain() const;
     terrain terrainDeLabyrinthe() const;
 
-    robot&setPosition(const position& pos) ;
+    robot& setPosition(const position& pos) ;
     robot& setDirection(direction d) ;
     robot& setTerrain(const terrain& terrain) ;
     
