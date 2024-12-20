@@ -6,7 +6,7 @@
 namespace fichiers
 {
     
-std::vector<bool> readVector::readLigne(istream& ist,position& entree, position& sortie, int i) const
+std::vector<bool> readVector::readLigne(std::istream& ist,position& entree, position& sortie, int i) const
 {
     char caractere;
     std::vector<bool> ligne;

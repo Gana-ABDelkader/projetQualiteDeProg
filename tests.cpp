@@ -1,3 +1,3 @@
-#define DOCTEST_CONFIG_NO_MULTITHREADING
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 
