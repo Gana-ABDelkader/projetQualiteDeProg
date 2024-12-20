@@ -2,6 +2,7 @@
 #define READVECTOR_H
 
 #include <iostream>
+#include <vector>
 
 class terrain;
 class position;
@@ -10,7 +11,7 @@ namespace fichiers {
 
 class readVector
 {
-    constexpr char finDeLigne{'\n'};
+    static constexpr char finDeLigne{'\n'};
 public:
     std::vector<bool> readLigne(std::istream& ist,position& entree, position& sortie,int i) const;
 };
