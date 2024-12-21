@@ -7,89 +7,116 @@
 namespace fichiers
 {
 
-std::vector<bool> readVectorSimpleAmeliore::readLigne(std::istream& ist,position& entree, position& sortie, int i) const
+readVector::readVector(std::istream& ist):
+    d_ligne{}, d_entree{0,0} , d_sortie{0,0}
 {
-    char caractere;
-    std::vector<bool> ligne;
-    std::string ISTligne;
-    std::getline(ist,ISTligne);
-    int indiceColonne=0;
-    for(int j=0; j<ISTligne.size();j++)
-    {
+    std::getline(ist,d_ligne);
+}
 
-        unsigned char c = ISTligne[j]; // Récupérer le caractère comme un unsigned char pour l'afficher en hexadécimal
+position readVector::entree() const
+{
+    return d_entree;
+}
 
-       if(ISTligne[j]=='.')
+position readVector::sortie() const
+{
+    return d_sortie;
+}
+
+readVectorSimpleAmeliore::readVectorSimpleAmeliore(std::istream& ist):
+    readVector{ist}
+{}
+
+bool readVectorSimpleAmeliore::traiteCaractere(char caractere, int& j, int indiceColonne)
+{
+    unsigned char caractereHexa = caractere; // Récupérer le caractère comme un unsigned char pour l'afficher en hexadécimal
+    bool valeurCaractereBool;
+       if(caractere=='.')
        {
-        ligne.push_back(false);
+            valeurCaractereBool = false;
        }
-       else if(c==0xE2)
+       else if(caractereHexa==premierOctetCaractereEntree)
        {
-        entree.setColonne(indiceColonne);
-        entree.setLigne(i);
-        ligne.push_back(false);
-        j+=2;
+            d_entree.setColonne(indiceColonne);
+            d_entree.setLigne(d_indiceLigne);
+            valeurCaractereBool = false;
+            j+=2;
        }
-       else if(c==0xF0)
+       else if(caractereHexa==premierOctetCaractereSortie)
        {
-        sortie.setColonne(indiceColonne);
-        sortie.setLigne(i);
-        ligne.push_back(false);
-        j+=3;
+            d_sortie.setColonne(indiceColonne);
+            d_sortie.setLigne(d_indiceLigne);
+            valeurCaractereBool = false;
+            j+=3;
        }
        else
        {
-        ligne.push_back(true);
+            valeurCaractereBool = true;
        }
-       indiceColonne++;
-
-    }
-    return ligne;
+       return valeurCaractereBool;
 }
 
-std::vector<bool> readVectorAmeliore2::readLigne(std::istream& ist,position& entree, position& sortie, int i) const
+std::vector<bool> readVectorSimpleAmeliore::readLigne(int indiceLigne)
 {
-    char caractere;
-    std::vector<bool> ligne;
-    std::string ISTligne;
-    std::getline(ist,ISTligne);
+    std::vector<bool> tableauLigne;
     int indiceColonne=0;
-    for(int j=0; j<ISTligne.size();j++)
+    d_indiceLigne=indiceLigne;
+    for(int j=0; j<d_ligne.size();j++)
     {
+        tableauLigne.push_back(traiteCaractere(d_ligne[j],j, indiceColonne));
+        indiceColonne++;
+    }
+    return tableauLigne;
+}
 
-        unsigned char c = ISTligne[j]; // Récupérer le caractère comme un unsigned char pour l'afficher en hexadécimal
+readVectorAmeliore2::readVectorAmeliore2(std::istream& ist):
+    readVector{ist}
+{}
 
-       if(ISTligne[j]=='.')
+bool readVectorAmeliore2::traiteCaractere(char caractere, int& j, int indiceColonne)
+{
+    unsigned char caractereHexa = caractere; // Récupérer le caractère comme un unsigned char pour l'afficher en hexadécimal
+    bool valeurCaractereBool;
+       if(caractere=='.')
        {
-        ligne.push_back(false);
+        valeurCaractereBool = false;
        }
-       else if(c==0xE2)
+       else if(caractereHexa==premierOctetCaractereMurEtCaractereEntree)
        {
            j++;
-           c=ISTligne[j];
-           if(c==0x8E)
+           caractereHexa=d_ligne[j];
+           if(caractereHexa==deuxiemeOctetCaractereEntree)
            {
-                entree.setColonne(indiceColonne);
-                entree.setLigne(i);
-                ligne.push_back(false);
+                d_entree.setColonne(indiceColonne);
+                d_entree.setLigne(d_indiceLigne);
+                valeurCaractereBool = false;
            }
            else
            {
-               ligne.push_back(true);
+               valeurCaractereBool = true;
            }
            j++;
        }
        else
        {
-        sortie.setColonne(indiceColonne);
-        sortie.setLigne(i);
-        ligne.push_back(false);
+        d_sortie.setColonne(indiceColonne);
+        d_sortie.setLigne(d_indiceLigne);
         j+=3;
+        valeurCaractereBool = false;
        }
-       indiceColonne++;
+       return valeurCaractereBool;
+}
 
+std::vector<bool> readVectorAmeliore2::readLigne(int indiceLigne)
+{
+    std::vector<bool> tableauLigne;
+    int indiceColonne=0;
+    for(int j=0; j<d_ligne.size();j++)
+    {
+        tableauLigne.push_back(traiteCaractere(d_ligne[j],j, indiceColonne));
+        indiceColonne++;
     }
-    return ligne;
+    return tableauLigne;
 }
 
 
