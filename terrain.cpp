@@ -8,7 +8,11 @@ terrain::terrain(const std::vector<std::vector<bool>>& terrain,const position& e
 
 terrain::terrain()
  : d_terrain{}, d_entree{-1,-1}, d_sortie{-1,-1}
- {}
+ {
+    std::vector<bool> bord{false,false,false,false,false};
+    std::vector<bool> milieu{false,true,true,true,false};
+    d_terrain = {bord,milieu,milieu,milieu,bord};
+ }
 
 position terrain::caseEntree() const{
     return d_entree;
