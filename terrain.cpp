@@ -2,19 +2,19 @@
 #include"read.h"
 //#include"save.h"
 
-terrain::terrain(const std::vector<std::vector<bool>>& terrain,const position& entree,const position& sortie)
- : d_terrain{terrain}, d_entree{entree}, d_sortie{sortie}
+terrain::terrain(const std::vector<std::vector<bool>>& terr,const position& entree,const position& sortie)
+ : d_terrain{terr} , d_entree{entree}, d_sortie{sortie}
 {}
 
 terrain::terrain()
- : d_terrain{}, d_entree{-1,-1}, d_sortie{-1,-1}
+ : d_terrain{} , d_entree{-1,-1}, d_sortie{-1,-1}
  {
-    std::vector<bool> bord{false,false,false,false,false};
-    std::vector<bool> milieu{false,true,true,true,false};
+    std::vector<bool> bord{true,true,true,true,true};
+    std::vector<bool> milieu{true,false,false,false,true};
     d_terrain = {bord,milieu,milieu,milieu,bord};
  }
 
-terrain::terrain(std::istream& ist) : d_terrain{}, d_entree{}, d_sortie{}
+terrain::terrain(std::istream& ist) : d_terrain{} , d_entree{}, d_sortie{}
 {
     fichiers::readSimpleAmeliore r{ist};
     *this = r.readTerrain();
