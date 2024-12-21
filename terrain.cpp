@@ -22,6 +22,10 @@ bool terrain::estUnMur(const position& p) const{
     return d_terrain[p.positionLigne()][p.positionColonne()];
 }
 
+void terrain::changeenMur(const position& p){
+    d_terrain[p.positionLigne()][p.positionColonne()] = true ;
+}
+
 /*
 void terrain::litUnTerrain(std::istream& ist){
     fichiers::read d{};
