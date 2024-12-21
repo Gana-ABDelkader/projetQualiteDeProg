@@ -13,7 +13,12 @@ terrain::terrain()
     std::vector<bool> milieu{false,true,true,true,false};
     d_terrain = {bord,milieu,milieu,milieu,bord};
  }
- {}
+
+terrain::terrain(std::istream& ist) : d_terrain{}, d_entree{}, d_sortie{}
+{
+    fichiers::readSimpleAmeliore r{ist};
+    *this = r.readTerrain();
+}
 
 position terrain::caseEntree() const{
     return d_entree;
@@ -29,6 +34,8 @@ bool terrain::estUnMur(const position& p) const{
 
 void terrain::changeenMur(const position& p){
     d_terrain[p.positionLigne()][p.positionColonne()] = true ;
+}
+
 int terrain::tailleTableau() const
 {
     return d_terrain.size();
@@ -37,7 +44,7 @@ int terrain::tailleTableau() const
 /*
 void terrain::litUnTerrain(std::istream& ist){
     fichiers::read d{};
-    d_terrain = d.readTerrain(ist);
+    *this = d.readTerrain(ist);
 }
 
 void terrain::ecritUnTerrain(std::ostream& ost) const{
