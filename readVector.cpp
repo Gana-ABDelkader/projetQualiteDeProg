@@ -8,7 +8,7 @@ namespace fichiers
 {
 
 readVector::readVector(std::istream& ist):
-    d_ligne{}, d_entree{0,0} , d_sortie{0,0}
+    d_ligne{}, d_entree{-1,-1} , d_sortie{-1,-1}
 {
     std::getline(ist,d_ligne);
 }
@@ -111,6 +111,7 @@ std::vector<bool> readVectorAmeliore2::readLigne(int indiceLigne)
 {
     std::vector<bool> tableauLigne;
     int indiceColonne=0;
+    d_indiceLigne=indiceLigne;
     for(int j=0; j<d_ligne.size();j++)
     {
         tableauLigne.push_back(traiteCaractere(d_ligne[j],j, indiceColonne));

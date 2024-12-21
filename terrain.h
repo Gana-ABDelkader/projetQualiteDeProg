@@ -1,4 +1,4 @@
-#ifndef TERRAIN_H
+﻿#ifndef TERRAIN_H
 #define TERRAIN_H
 
 #include "position.h"
@@ -16,11 +16,11 @@ class terrain
         bool estUnMur(const position& p) const;
         void litUnTerrain(std::istream& ist);
         void ecritUnTerrain(std::ostream& ost) const;
+        int tailleTableau() const;
 
         void changeenMur(const position& p);
 
-
-    private : 
+    private :
         std::vector<std::vector<bool>> d_terrain; // les murs sont à true, les cases vides à false
         position d_entree;
         position d_sortie;
