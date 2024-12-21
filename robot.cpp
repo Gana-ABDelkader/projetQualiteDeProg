@@ -1,7 +1,7 @@
 #include "robot.h"
 
 robot::robot() :
-    d_position{}, d_direction{HAUT}
+    d_position{}, d_direction{BAS}
 {}
 
 robot::robot(const position& pos,direction d, const terrain& terrain) :
@@ -41,7 +41,7 @@ robot& robot::setTerrain(const terrain& terrain)
     return *this;
 }
 
-bool robot::detectObstacle() const
+position robot::calculatePosition() const
 {
     position pos;
     switch(d_direction) {
@@ -59,29 +59,21 @@ bool robot::detectObstacle() const
         break;
   
     }
-    return d_terrain.estUnMur(pos);
+    return pos;
+}
 
+bool robot::detectObstacle() const
+{
+    return d_terrain.estUnMur(calculatePosition());
 }
 
 robot& robot::move()
 {
-    position pos;
-    switch(d_direction) {
-        case HAUT:
-        d_position.setLigne(d_position.positionLigne()-1);
-        break;
-        case BAS:
-        d_position.setLigne(d_position.positionLigne()+1);
-        break;
-        case DROITE:
-        d_position.setColonne(d_position.positionColonne()+1);
-        break;
-        case GAUCHE:
-        d_position.setColonne(d_position.positionColonne()-1);
-        break;
-  
+    if(!detectObstacle()) {
+        d_position = calculatePosition();
     }
     return *this;
+
 }
 
 robot& robot::goUp() 

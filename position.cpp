@@ -1,7 +1,7 @@
 #include "position.h"
 
 position::position() :
-    d_posLigne{0}, d_posColonne{0}
+    d_posLigne{1}, d_posColonne{1}
 {}
 
 position::position(int posLigne, int posColonne) :

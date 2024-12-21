@@ -25,8 +25,10 @@ class robot
     robot& setDirection(direction d) ;
     robot& setTerrain(const terrain& terrain) ;
     
+
+    // Il avance d'un pas de 1 dans sa direction 
+    position calculatePosition() const;
     bool detectObstacle() const;
-    
     robot& move() ;
     
     robot& goUp() ;
