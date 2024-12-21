@@ -1,0 +1,7 @@
+- definir un flux : ifstream input("TerrainSimple.txt);
+                                  ("TerrainAmeliore1.txt);
+                                  ("TerrainAmeliore2.txt);
+- definir readSimpleAmeliore r{input} <---- pour les deux premiers labyrinthe
+          readAmeliore2 r{input}      <---- pour le TerrainAmeliore2.txt
+- appeler la methode readTerrain sur r : r.readTerrain() <---- ceci renverras un terrain avec le vector<vector<bool>> et
+  les position de l'entrée et de la sortie
