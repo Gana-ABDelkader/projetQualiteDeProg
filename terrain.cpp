@@ -14,6 +14,12 @@ terrain::terrain()
     d_terrain = {bord,milieu,milieu,milieu,bord};
  }
 
+/*terrain::terrain(std::istream& ist) : d_terrain{} , d_entree{}, d_sortie{}
+{
+    fichiers::readSimpleAmeliore r{ist};
+    *this = r.readTerrain();
+}*/
+
 position terrain::caseEntree() const{
     return d_entree;
 }
@@ -46,3 +52,4 @@ void terrain::ecritUnTerrain(std::ostream& ost) const{
     s.saveTerrain(ost);
 }
 */
+
