@@ -68,15 +68,13 @@ il faut que j'attend que les methodes de terrain soient tester*/
 /*TEST_CASE("La methode detectObstacle fonctionne correctement"){
     SUBCASE("Il n'y a pas d'obstacle"){
         terrain t{};
-        robot r{{1,1},robot::HAUT,t};
+        robot r{{1,1},robot::BAS,t};
         REQUIRE_UNARY_FALSE(r.detectObstacle());
     }
     SUBCASE("Il y a un obstacle"){
         terrain t{};
         robot r{{1,1},robot::HAUT,t};
-        //le labyrinthe est entouré de murs, j'utilise cet methode pour le tester
-        t.changeenMur({0,1});
-        REQUIRE_UNARY(r.detectObstacle(), true);
+        REQUIRE_UNARY(r.detectObstacle());
     }
 }*/
 

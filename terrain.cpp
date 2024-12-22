@@ -13,7 +13,6 @@ terrain::terrain()
     std::vector<bool> milieu{false,true,true,true,false};
     d_terrain = {bord,milieu,milieu,milieu,bord};
  }
- {}
 
 position terrain::caseEntree() const{
     return d_entree;
@@ -29,6 +28,8 @@ bool terrain::estUnMur(const position& p) const{
 
 void terrain::changeenMur(const position& p){
     d_terrain[p.positionLigne()][p.positionColonne()] = true ;
+}
+
 int terrain::tailleTableau() const
 {
     return d_terrain.size();
