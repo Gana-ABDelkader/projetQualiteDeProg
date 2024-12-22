@@ -8,8 +8,9 @@
 class terrain
 {
     public :
-        terrain(const std::vector<std::vector<bool>>& terrain,const position& entree,const position& sortie);
+        terrain(const std::vector<std::vector<bool>>& terr,const position& entree,const position& sortie); 
         terrain();
+        terrain(std::istream& ist);
 
         position caseEntree() const;
         position caseSortie() const;
