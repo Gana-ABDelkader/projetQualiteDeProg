@@ -28,6 +28,10 @@ position terrain::caseSortie() const{
     return d_sortie;
 }
 
+std::vector<std::vector<bool>> terrain::labyrinthe() const{
+    return d_terrain;
+}
+
 bool terrain::estUnMur(const position& p) const{
     return d_terrain[p.positionLigne()][p.positionColonne()];
 }
