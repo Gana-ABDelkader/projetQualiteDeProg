@@ -1,9 +1,9 @@
-﻿#include "ReadVector.h"
-#include "doctest.h"
+﻿#include "../../ReadVector.h"
+#include "../../doctest.h"
 #include <sstream>
 #include <string>
 #include <vector>
-#include "position.h"
+#include "../../position.h"
 
 
 

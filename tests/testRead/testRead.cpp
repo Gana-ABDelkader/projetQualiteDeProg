@@ -1,10 +1,10 @@
-#include "read.h"
-#include "doctest.h"
+#include "../../read.h"
+#include "../../doctest.h"
 #include <sstream>
 #include <string>
 #include <vector>
-#include "position.h"
-#include "terrain.h"
+#include "../../position.h"
+#include "../../terrain.h"
 
 void test_TailleTerrain(const terrain& t, int nbLigne)
 {
