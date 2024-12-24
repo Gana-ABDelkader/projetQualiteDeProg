@@ -6,11 +6,11 @@
 TEST_CASE("Les constructeurs marchent bien"){
     SUBCASE("Le constructeur par défaut marche bien"){
         terrain t{};
-        REQUIRE_EQ(t.caseEntree(),{1,1});
-        REQUIRE_EQ(t.caseSortie(),{1,1});
-        REQUIRE_EQ(t.labyrinthe(),{{true,true,true,true,true},{true,false,false,false,true},{true,false,false,false,true},{true,false,false,false,true},{true,true,true,true,true}});
-    }
 
+        REQUIRE_EQ(t.caseEntree(),position{1,1});
+        REQUIRE_EQ(t.caseSortie(),position{1,1});
+        REQUIRE_EQ(t.labyrinthe(),std::vector<std::vector<bool>>{{true,true,true,true,true},{true,false,false,false,true},{true,false,false,false,true},{true,false,false,false,true},{true,true,true,true,true}});
+    }
     SUBCASE("Le constructeur avec en paramètre un terrain, une entrée et une sortie marche bien"){
         std::vector<std::vector<bool>> labyrinthe{{true,true,true,true,true},{true,false,false,false,true},{true,false,false,false,true},{true,false,false,false,true},{true,true,true,true,true}};
         position entree{1,3},sortie{2,3};
