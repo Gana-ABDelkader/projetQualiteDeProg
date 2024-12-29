@@ -39,25 +39,25 @@ TEST_CASE("La methode calculatePosition fonctionne correctement"){
     robot r{p,robot::BAS,terrain{}};
     position pos{};
     SUBCASE("Le robot est en bas"){
-        pos = r.calculatePosition();
+        pos = r.calculateNewPosition();
         REQUIRE_EQ(pos.positionLigne(), p.positionLigne()+1);
         REQUIRE_EQ(pos.positionColonne(), p.positionColonne());
     }
     SUBCASE("Le robot est en haut"){
         r.setDirection(robot::HAUT);
-        pos = r.calculatePosition();
+        pos = r.calculateNewPosition();
         REQUIRE_EQ(pos.positionLigne(), p.positionLigne()-1);
         REQUIRE_EQ(pos.positionColonne(), p.positionColonne());
     }
     SUBCASE("Le robot est a droite"){
         r.setDirection(robot::DROITE);
-        pos = r.calculatePosition();
+        pos = r.calculateNewPosition();
         REQUIRE_EQ(pos.positionLigne(), p.positionLigne());
         REQUIRE_EQ(pos.positionColonne(), p.positionColonne()+1);
     }
     SUBCASE("Le robot est a gauche"){
         r.setDirection(robot::GAUCHE);
-        pos = r.calculatePosition();
+        pos = r.calculateNewPosition();
         REQUIRE_EQ(pos.positionLigne(), p.positionLigne());
         REQUIRE_EQ(pos.positionColonne(), p.positionColonne()-1);
     }
