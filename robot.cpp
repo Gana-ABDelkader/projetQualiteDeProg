@@ -1,11 +1,11 @@
 #include "robot.h"
 
 robot::robot() :
-    d_position{}, d_direction{BAS}
+    d_position{}, d_direction{BAS}, d_observateurs{}
 {}
 
 robot::robot(const position& pos,direction d, const terrain& terrain) :
-    d_position{pos}, d_direction{d}, d_terrain{terrain}
+    d_position{pos}, d_direction{d}, d_terrain{terrain}, d_observateurs{}
 {}
 
 position robot::positionSurTerrain() const
@@ -41,7 +41,7 @@ robot& robot::setTerrain(const terrain& terrain)
     return *this;
 }
 
-position robot::calculatePosition() const
+position robot::calculateNewPosition() const
 {
     position pos;
     switch(d_direction) {
@@ -64,38 +64,51 @@ position robot::calculatePosition() const
 
 bool robot::detectObstacle() const
 {
-    return d_terrain.estUnMur(calculatePosition());
+    return d_terrain.estUnMur(calculateNewPosition());
 }
 
 robot& robot::move()
 {
     if(!detectObstacle()) {
-        d_position = calculatePosition();
+        d_position = calculateNewPosition();
+        notifieTousLesObservateurs();
     }
     return *this;
 
 }
 
-robot& robot::goUp() 
+void robot::goUp() 
 {
     setDirection(HAUT);
-    return *this;
+    notifieTousLesObservateurs();
 }
 
-robot& robot::goDown() 
+void robot::goDown() 
 {
     setDirection(BAS);
-    return *this;
+    notifieTousLesObservateurs();
 }
 
-robot& robot::turnLeft() 
+void robot::turnLeft() 
 {
     setDirection(GAUCHE);
-    return *this;
+    notifieTousLesObservateurs();
 }
 
-robot& robot::turnRight() 
+void robot::turnRight() 
 {
     setDirection(DROITE);
-    return *this;
+    notifieTousLesObservateurs();
+}
+
+void robot::ajouterObservateur(const observateur& o)
+{
+    d_observateurs.push_back(std::make_unique<observateur>(o));
+}
+
+void robot::notifieTousLesObservateurs() const
+{
+    for(const auto& observateur : d_observateurs) {
+        observateur->observe(*this);
+    }
 }

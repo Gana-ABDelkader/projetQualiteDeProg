@@ -3,6 +3,9 @@
 
 #include "position.h"
 #include "terrain.h"
+#include "observateur.h"
+#include <vector>
+#include <memory>
 
 class robot
 {public:
@@ -27,22 +30,22 @@ class robot
     
 
     // Il avance d'un pas de 1 dans sa direction 
-    position calculatePosition() const;
+    position calculateNewPosition() const;
     bool detectObstacle() const;
     robot& move() ;
     
-    robot& goUp() ;
-    robot& goDown() ;
-    robot& turnLeft() ;
-    robot& turnRight() ;
+    void goUp() ;
+    void goDown() ;
+    void turnLeft() ;
+    void turnRight() ;
 
-    //ajoute des observateurs
-    //notifie chaque observteurs (faut faire la manip d'etre notifier et tout)
+    void ajouterObservateur(const observateur& o);
+    void notifieTousLesObservateurs() const ;
 private:
     position d_position;
     direction d_direction;
     terrain d_terrain;
-    //le tableau des observateurs
+    std::vector<std::unique_ptr<observateur>> d_observateurs;
     
 };
 
