@@ -39,7 +39,7 @@ class robot
     void turnLeft() ;
     void turnRight() ;
 
-    void ajouterObservateur(const observateur& o);
+    void ajouterObservateur(std::unique_ptr<observateur> o);
     void notifieTousLesObservateurs() const ;
 private:
     position d_position;

@@ -101,9 +101,9 @@ void robot::turnRight()
     notifieTousLesObservateurs();
 }
 
-void robot::ajouterObservateur(const observateur& o)
+void robot::ajouterObservateur(std::unique_ptr<observateur> o)
 {
-    d_observateurs.push_back(std::make_unique<observateur>(o));
+    d_observateurs.push_back(std::move(o));
 }
 
 void robot::notifieTousLesObservateurs() const
