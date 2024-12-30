@@ -13,12 +13,7 @@ void robotLeft::move(robot& r){
     si bas : droite
 
     */
-   switch(r.directionSurTerrain()){
-    case robot::direction::DROITE : r.goUp(); break;
-    case robot::direction::BAS : r.turnRight(); break;
-    case robot::direction::GAUCHE : r.goDown(); break;
-    case robot::direction::HAUT : r.turnLeft(); break;
-   }
+   r.turnLeft();
 }
 
 void robotRight::move(robot& r){
@@ -30,10 +25,5 @@ void robotRight::move(robot& r){
     si haut : droite
 
     */
-   switch(r.directionSurTerrain()){
-    case robot::direction::DROITE : r.goDown(); break;
-    case robot::direction::BAS : r.turnLeft(); break;
-    case robot::direction::GAUCHE : r.goUp(); break;
-    case robot::direction::HAUT : r.turnRight(); break;
-   }
+   r.turnRight();
 }
