@@ -5,10 +5,6 @@ observateur::observateur() :
     d_positionRobot{}
 {}
 
-observateurCompteurDeplacement::observateurCompteurDeplacement(int compteur) :
-    d_compteurDeplacement{compteur}
-{}
-
 void observateur::observe(const robot& r)
 {
     d_positionRobot = r.positionSurTerrain();
@@ -17,6 +13,10 @@ void observateur::observe(const robot& r)
 
 observateurCompteurDeplacement::observateurCompteurDeplacement() :
     d_compteurDeplacement{0}
+{}
+
+observateurCompteurDeplacement::observateurCompteurDeplacement(int compteur) :
+    d_compteurDeplacement{compteur}
 {}
 
 int observateurCompteurDeplacement::CompteurDeplacement() const
