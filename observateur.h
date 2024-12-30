@@ -1,7 +1,7 @@
 #ifndef OBSERVATEUR_H
 #define OBSERVATEUR_H
 
-#include "robot.h"
+class robot;
 
 class observateur
 {
@@ -11,7 +11,7 @@ public:
     virtual void observe(const robot& r) ;
 private:
     position d_positionRobot;
-    robot::direction d_directionRobot;
+    //robot::direction d_directionRobot;
 };
 
 class observateurCompteurDeplacement : public observateur

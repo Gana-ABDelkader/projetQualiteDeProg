@@ -1,13 +1,14 @@
 #include "observateur.h"
+#include "robot.h"
 
 observateur::observateur() :
-    d_positionRobot{}, d_directionRobot{robot::direction::BAS}
+    d_positionRobot{}
 {}
 
 void observateur::observe(const robot& r)
 {
     d_positionRobot = r.positionSurTerrain();
-    d_directionRobot = r.directionSurTerrain();
+    //d_directionRobot = r.directionSurTerrain();
 }
 
 observateurCompteurDeplacement::observateurCompteurDeplacement() :

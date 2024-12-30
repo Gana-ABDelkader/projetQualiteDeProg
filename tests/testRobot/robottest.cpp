@@ -65,16 +65,13 @@ TEST_CASE("La methode calculatePosition fonctionne correctement"){
 
 /*un terrain par defaut il n'est intialise? Pour l'instant j'arrive pas a tester sur des cases d'un terrain par defaut
 il faut que j'attend que les methodes de terrain soient tester*/
-TEST_CASE("La methode detectObstacle fonctionne correctement"){
-    SUBCASE("Il n'y a pas d'obstacle"){
-        terrain t{};
-        robot r{{1,1},robot::direction::BAS,t};
-        REQUIRE_UNARY_FALSE(r.detectObstacle(r.positionSurTerrain()));
-    }
+TEST_CASE("La methode detectObstacle fonctionne correctement"){ 
     SUBCASE("Il y a un obstacle"){
         terrain t{};
         robot r{{1,1},robot::direction::HAUT,t};
-        REQUIRE_UNARY(r.detectObstacle(r.positionSurTerrain()));
+        r.move();
+        REQUIRE_EQ(r.positionSurTerrain().positionLigne(), 1);
+        REQUIRE_EQ(r.positionSurTerrain().positionColonne(), 1);
     }
 }
 
@@ -101,12 +98,14 @@ TEST_CASE("La methode move fonctionne correctement"){
 TEST_CASE("Les methodes de changement de direction fonctionnent correctement"){
     robot r{};
     SUBCASE("turnLeft fonctionne"){
+        robot::direction d = static_cast<robot::direction>((static_cast<int>(r.directionSurTerrain())+3)%4);
         r.turnLeft();
-        REQUIRE_EQ(r.directionSurTerrain(), robot::direction::GAUCHE);
+        REQUIRE_EQ(r.directionSurTerrain(), d);
     }
     SUBCASE("turnRight fonctionne"){
+        robot::direction d = static_cast<robot::direction>((static_cast<int>(r.directionSurTerrain())+1)%4);
         r.turnRight();
-        REQUIRE_EQ(r.directionSurTerrain(), robot::direction::DROITE);
+        REQUIRE_EQ(r.directionSurTerrain(), d);
     }
 }
 

@@ -1,4 +1,5 @@
 #include "robot.h"
+#include "observateur.h"
 
 robot::robot() :
     d_position{}, d_direction{direction::BAS}, d_observateurs{}
@@ -92,12 +93,12 @@ robot& robot::turnRight()
     return *this;
 }
 
-bool robot::obstacleAdroite() const
+/*bool robot::obstacleAdroite() const
 {
     robot robotTemp = *this;
     robotTemp.turnRight();
     return robotTemp.detectObstacle(robotTemp.calculateNewPosition());
-}
+}*/
 
 void robot::ajouterObservateur(std::unique_ptr<observateur> o)
 {
