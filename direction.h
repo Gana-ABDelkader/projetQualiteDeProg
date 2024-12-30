@@ -1,5 +1,5 @@
 #ifndef DIRECTION_H
-#define DIRCTION_H
+#define DIRECTION_H
 
 class direction
 {public:
@@ -21,7 +21,7 @@ class direction
 
     bool operator==(const direction& d) const;
     bool operator!=(const direction& d) const;
-    
+
 private:
     valeur d_valeur;
 };

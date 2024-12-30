@@ -2,29 +2,29 @@
 #include "robot.h"
 
 observateur::observateur() :
-    d_positionRobot{}
+    d_positionRobot{}, d_directionRobot{}
 {}
 
 void observateur::observe(const robot& r)
 {
     d_positionRobot = r.positionSurTerrain();
-    //d_directionRobot = r.directionSurTerrain();
+    d_directionRobot = r.directionSurTerrain();
 }
 
 observateurCompteurDeplacement::observateurCompteurDeplacement() :
-    d_compteurDeplacement{0}
+    observateur{}, d_compteurDeplacement{0}
 {}
 
 observateurCompteurDeplacement::observateurCompteurDeplacement(int compteur) :
-    d_compteurDeplacement{compteur}
+    observateur{}, d_compteurDeplacement{compteur}
 {}
 
-int observateurCompteurDeplacement::CompteurDeplacement() const
+int observateurCompteurDeplacement::compteurDeplacement() const
 {
     return d_compteurDeplacement;
 }
 
-void observateurCompteurDeplacement::IncrementerCompteur()
+void observateurCompteurDeplacement::incrementerCompteur()
 {
     d_compteurDeplacement++;
 }
@@ -32,7 +32,7 @@ void observateurCompteurDeplacement::IncrementerCompteur()
 void observateurCompteurDeplacement::observe(const robot& r)
 {
     observateur::observe(r);
-    IncrementerCompteur();
+    incrementerCompteur();
 }
 
 std::unique_ptr<observateur> observateurCompteurDeplacement::clone() const
