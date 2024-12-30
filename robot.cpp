@@ -1,7 +1,7 @@
 #include "robot.h"
 
 robot::robot() :
-    d_position{}, d_direction{BAS}, d_observateurs{}
+    d_position{}, d_direction{direction::BAS}, d_observateurs{}
 {}
 
 robot::robot(const position& pos,direction d, const terrain& terrain) :
@@ -45,16 +45,16 @@ position robot::calculateNewPosition() const
 {
     position pos;
     switch(d_direction) {
-        case HAUT:
+        case direction::HAUT:
         pos = {d_position.positionLigne()-1,d_position.positionColonne()};
         break;
-        case BAS:
+        case direction::BAS:
         pos = {d_position.positionLigne()+1,d_position.positionColonne()};
         break;
-        case DROITE:
+        case direction::DROITE:
         pos = {d_position.positionLigne(),d_position.positionColonne()+1};
         break;
-        case GAUCHE:
+        case direction::GAUCHE:
         pos = {d_position.positionLigne(),d_position.positionColonne()-1};
         break;
   
@@ -62,43 +62,41 @@ position robot::calculateNewPosition() const
     return pos;
 }
 
-bool robot::detectObstacle() const
+bool robot::detectObstacle(const position& pos) const
 {
-    return d_terrain.estUnMur(calculateNewPosition());
+    return d_terrain.estUnMur(pos);
 }
 
 robot& robot::move()
 {
-    if(!detectObstacle()) {
-        d_position = calculateNewPosition();
+    position pos = calculateNewPosition();
+    if(!detectObstacle(pos)) {
+        d_position = pos;
         notifieTousLesObservateurs();
     }
     return *this;
 
 }
 
-void robot::goUp() 
+robot& robot::turnLeft() 
 {
-    setDirection(HAUT);
+    d_direction = static_cast<direction>((static_cast<int>(d_direction)+3)%4);
     notifieTousLesObservateurs();
+    return *this;
 }
 
-void robot::goDown() 
+robot& robot::turnRight()
 {
-    setDirection(BAS);
+    d_direction = static_cast<direction>((static_cast<int>(d_direction)+1)%4);
     notifieTousLesObservateurs();
+    return *this;
 }
 
-void robot::turnLeft() 
+bool robot::obstacleAdroite() const
 {
-    setDirection(GAUCHE);
-    notifieTousLesObservateurs();
-}
-
-void robot::turnRight() 
-{
-    setDirection(DROITE);
-    notifieTousLesObservateurs();
+    robot robotTemp = *this;
+    robotTemp.turnRight();
+    return robotTemp.detectObstacle(robotTemp.calculateNewPosition());
 }
 
 void robot::ajouterObservateur(std::unique_ptr<observateur> o)

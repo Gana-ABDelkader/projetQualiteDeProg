@@ -9,12 +9,12 @@
 
 class robot
 {public:
-
-    enum direction {
-        HAUT,
-        BAS,
-        GAUCHE,
-        DROITE
+    //les directions de base sur l'ecran
+    enum class direction {
+    HAUT = 0,
+    DROITE = 1,
+    BAS = 2,
+    GAUCHE = 3
     };
 
     robot();
@@ -31,13 +31,14 @@ class robot
 
     // Il avance d'un pas de 1 dans sa direction 
     position calculateNewPosition() const;
-    bool detectObstacle() const;
+    bool detectObstacle(const position& pos) const;
     robot& move() ;
     
-    void goUp() ;
-    void goDown() ;
-    void turnLeft() ;
-    void turnRight() ;
+    //il fait des rotations de 90 degres
+    robot& turnLeft() ;
+    robot& turnRight() ;
+
+    bool obstacleAdroite() const;
 
     void ajouterObservateur(std::unique_ptr<observateur> o);
     void notifieTousLesObservateurs() const ;
