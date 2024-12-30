@@ -19,6 +19,7 @@ class robot
 
     robot();
     robot(const position& pos, direction d, const terrain& terrain) ;
+    robot(const robot& r) ; 
 
     position positionSurTerrain() const;
     direction directionSurTerrain() const;

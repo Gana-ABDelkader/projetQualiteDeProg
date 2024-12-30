@@ -5,6 +5,10 @@ observateur::observateur() :
     d_positionRobot{}
 {}
 
+observateurCompteurDeplacement::observateurCompteurDeplacement(int compteur) :
+    d_compteurDeplacement{compteur}
+{}
+
 void observateur::observe(const robot& r)
 {
     d_positionRobot = r.positionSurTerrain();
@@ -29,5 +33,10 @@ void observateurCompteurDeplacement::observe(const robot& r)
 {
     observateur::observe(r);
     IncrementerCompteur();
+}
+
+std::unique_ptr<observateur> observateurCompteurDeplacement::clone() const
+{
+    return std::make_unique<observateurCompteurDeplacement>(d_compteurDeplacement);
 }
 

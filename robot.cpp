@@ -9,6 +9,14 @@ robot::robot(const position& pos,direction d, const terrain& terrain) :
     d_position{pos}, d_direction{d}, d_terrain{terrain}, d_observateurs{}
 {}
 
+robot::robot(const robot& r) :
+    d_position{r.d_position}, d_direction{r.d_direction}, d_terrain{r.d_terrain}, d_observateurs{}
+{
+    for(const auto& observateur : r.d_observateurs) {
+        ajouterObservateur(observateur->clone());
+    }
+}
+
 position robot::positionSurTerrain() const
 {
     return d_position;
@@ -93,12 +101,12 @@ robot& robot::turnRight()
     return *this;
 }
 
-/*bool robot::obstacleAdroite() const
+bool robot::obstacleAdroite() const
 {
     robot robotTemp = *this;
     robotTemp.turnRight();
     return robotTemp.detectObstacle(robotTemp.calculateNewPosition());
-}*/
+}
 
 void robot::ajouterObservateur(std::unique_ptr<observateur> o)
 {
