@@ -2,10 +2,10 @@
 #include "observateur.h"
 
 robot::robot() :
-    d_position{}, d_direction{direction::BAS}, d_observateurs{}
+    d_position{}, d_direction{}, d_observateurs{}
 {}
 
-robot::robot(const position& pos,direction d, const terrain& terrain) :
+robot::robot(const position& pos,const direction& d, const terrain& terrain) :
     d_position{pos}, d_direction{d}, d_terrain{terrain}, d_observateurs{}
 {}
 
@@ -22,7 +22,7 @@ position robot::positionSurTerrain() const
     return d_position;
 }
 
-robot::direction robot::directionSurTerrain() const
+direction robot::directionSurTerrain() const
 {
     return d_direction;
 }
@@ -38,7 +38,7 @@ robot& robot::setPosition(const position& pos)
     return *this;
 }
 
-robot& robot::setDirection(direction d) 
+robot& robot::setDirection(const direction& d) 
 {
     d_direction = d;
     return *this;
@@ -53,17 +53,17 @@ robot& robot::setTerrain(const terrain& terrain)
 position robot::calculateNewPosition() const
 {
     position pos;
-    switch(d_direction) {
-        case direction::HAUT:
+    switch(d_direction.valeurDirection()) {
+        case direction::valeur::HAUT:
         pos = {d_position.positionLigne()-1,d_position.positionColonne()};
         break;
-        case direction::BAS:
+        case direction::valeur::BAS:
         pos = {d_position.positionLigne()+1,d_position.positionColonne()};
         break;
-        case direction::DROITE:
+        case direction::valeur::DROITE:
         pos = {d_position.positionLigne(),d_position.positionColonne()+1};
         break;
-        case direction::GAUCHE:
+        case direction::valeur::GAUCHE:
         pos = {d_position.positionLigne(),d_position.positionColonne()-1};
         break;
   
@@ -89,14 +89,14 @@ robot& robot::move()
 
 robot& robot::turnLeft() 
 {
-    d_direction = static_cast<direction>((static_cast<int>(d_direction)+3)%4);
+    d_direction.RotateLeft();
     notifieTousLesObservateurs();
     return *this;
 }
 
 robot& robot::turnRight()
 {
-    d_direction = static_cast<direction>((static_cast<int>(d_direction)+1)%4);
+    d_direction.RotateRight();
     notifieTousLesObservateurs();
     return *this;
 }

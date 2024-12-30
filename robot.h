@@ -3,22 +3,15 @@
 
 #include "position.h"
 #include "terrain.h"
+#include "direction.h"
 #include "observateur.h"
 #include <vector>
 #include <memory>
 
 class robot
 {public:
-    //les directions de base sur l'ecran
-    enum class direction {
-    HAUT = 0,
-    DROITE = 1,
-    BAS = 2,
-    GAUCHE = 3
-    };
-
     robot();
-    robot(const position& pos, direction d, const terrain& terrain) ;
+    robot(const position& pos, const direction& d, const terrain& terrain) ;
     robot(const robot& r) ; 
 
     position positionSurTerrain() const;
@@ -26,7 +19,7 @@ class robot
     terrain terrainDeLabyrinthe() const;
 
     robot& setPosition(const position& pos) ;
-    robot& setDirection(direction d) ;
+    robot& setDirection(const direction& d) ;
     robot& setTerrain(const terrain& terrain) ;
     
 
