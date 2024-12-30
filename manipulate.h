@@ -1,9 +1,7 @@
 #ifndef MANIPULATE_H
 #define MANIPULATE_H
 
-class robot;
-
-enum direction {droite,haut,gauche,bas};
+#include"robot.h"
 
 class manipulate
 {
