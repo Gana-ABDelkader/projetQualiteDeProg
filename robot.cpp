@@ -2,7 +2,7 @@
 #include "observateur.h"
 
 robot::robot() :
-    d_position{}, d_direction{}, d_observateurs{}
+    d_position{}, d_direction{}, d_terrain{}, d_observateurs{}
 {}
 
 robot::robot(const position& pos,const direction& d, const terrain& terrain) :

@@ -29,7 +29,7 @@ class robot
     robot& move() ;
     
     //il fait des rotations de 90 degres
-    robot& turnLeft() ;
+    robot& turnLeft()  ;
     robot& turnRight() ;
 
     bool obstacleAdroite() const;
