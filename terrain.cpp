@@ -7,7 +7,11 @@ terrain::terrain(const std::vector<std::vector<bool>>& terr,const position& entr
 
 terrain::terrain()
  : d_labyrinthe{} , d_entree{-1,-1}, d_sortie{-1,-1}
-{}
+{
+    std::vector<bool> bord{true,true,true,true,true};
+    std::vector<bool> milieu{true,false,false,false,true};
+    d_labyrinthe = {bord,milieu,milieu,milieu,bord};
+}
 
 position terrain::caseEntree() const{
     return d_entree;

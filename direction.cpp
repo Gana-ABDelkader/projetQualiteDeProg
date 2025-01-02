@@ -30,3 +30,13 @@ direction& direction::RotateRight()
     d_valeur = (valeurDirection()+1)%4;
     return *this;
 }
+
+bool direction::operator==(const direction& d) const
+{
+    return d_valeur == d.valeurDirection();
+}
+
+bool direction::operator!=(const direction& d) const
+{
+    return d_valeur != d.valeurDirection();
+}

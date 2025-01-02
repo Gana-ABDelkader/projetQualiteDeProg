@@ -38,7 +38,7 @@ observateurCompteur::observateurCompteur() :
 {}
 
 observateurCompteur::observateurCompteur(int compteur) :
-    observateur{}, d_compteur{compteur}, d_estInitialise{true}
+    observateur{}, d_compteur{compteur}, d_estInitialise{false}
 {}
 
 int observateurCompteur::compteur() const
@@ -58,7 +58,8 @@ void observateurCompteur::initialiser()
 
 void observateurCompteur::incrementerCompteur()
 {
-    d_compteur++;
+    std::cout << "incrementerCompteur" << std::endl;
+    d_compteur = d_compteur + 1;
 }
 
 observateurCompteurAvancement::observateurCompteurAvancement() :
@@ -84,6 +85,7 @@ void observateurCompteurAvancement::observe(const robot& r)
             d_positionPrecedente = positionRobot();
         }
    }
+   std::cout << "Nombre d'avancement : " << compteur() << std::endl;
 }
 
 std::unique_ptr<observateur> observateurCompteurAvancement::clone() const
@@ -108,12 +110,13 @@ void observateurCompteurRotation::observe(const robot& r)
     }
    else
    {
-        if(directionRobot().valeurDirection() != d_directionPrecedente.valeurDirection())
+        if(directionRobot() != d_directionPrecedente)
         {
             incrementerCompteur();
             d_directionPrecedente = directionRobot();
         }
    }
+    std::cout << "Nombre de rotation : " << compteur() << std::endl;
 }
 
 std::unique_ptr<observateur> observateurCompteurRotation::clone() const

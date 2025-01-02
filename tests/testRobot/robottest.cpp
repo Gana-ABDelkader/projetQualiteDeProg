@@ -6,17 +6,19 @@
 TEST_CASE("Les consructeurs fonctionnent correctement") {
     SUBCASE("Le constructeur par defaut fonctionne"){
         robot r{};
+        int d = direction::BAS;
         REQUIRE_EQ(r.positionSurTerrain().positionLigne(), 1);
         REQUIRE_EQ(r.positionSurTerrain().positionColonne(), 1);
-        REQUIRE_EQ(r.directionSurTerrain(), direction::BAS);
+        REQUIRE_EQ(r.directionSurTerrain(), d);
     }
     SUBCASE("Le constructeur avec parametre fonctionne"){
         position p{2,5};
         terrain t{};
         robot r{p,direction::DROITE,t};
+        int d = direction::DROITE;
         REQUIRE_EQ(r.positionSurTerrain().positionLigne(), p.positionLigne());
         REQUIRE_EQ(r.positionSurTerrain().positionColonne(), p.positionColonne());
-        REQUIRE_EQ(r.directionSurTerrain(), direction::DROITE);
+        REQUIRE_EQ(r.directionSurTerrain(), d);
     }
 }
 
@@ -29,8 +31,9 @@ TEST_CASE("Les methodes Set fonctionnent correctement"){
         REQUIRE_EQ(r.positionSurTerrain().positionColonne(), p.positionColonne());
     }
     SUBCASE("setDirection fonctionne"){
+        int d = direction::DROITE;
         r.setDirection(direction::DROITE);
-        REQUIRE_EQ(r.directionSurTerrain(), direction::DROITE);
+        REQUIRE_EQ(r.directionSurTerrain(), d);
     }
 }
 
