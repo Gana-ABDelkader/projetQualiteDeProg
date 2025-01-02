@@ -1,24 +1,13 @@
 ﻿#include "terrain.h"
 #include"read.h"
-//#include"save.h"
 
 terrain::terrain(const std::vector<std::vector<bool>>& terr,const position& entree,const position& sortie)
- : d_terrain{terr} , d_entree{entree}, d_sortie{sortie}
+ : d_labyrinthe{terr} , d_entree{entree}, d_sortie{sortie}
 {}
 
 terrain::terrain()
- : d_terrain{} , d_entree{-1,-1}, d_sortie{-1,-1}
- {
-    std::vector<bool> bord{true,true,true,true,true};
-    std::vector<bool> milieu{true,false,false,false,true};
-    d_terrain = {bord,milieu,milieu,milieu,bord};
- }
-
-/*terrain::terrain(std::istream& ist) : d_terrain{} , d_entree{}, d_sortie{}
-{
-    fichiers::readSimpleAmeliore r{ist};
-    *this = r.readTerrain();
-}*/
+ : d_labyrinthe{} , d_entree{-1,-1}, d_sortie{-1,-1}
+ {}
 
 position terrain::caseEntree() const{
     return d_entree;
@@ -29,31 +18,24 @@ position terrain::caseSortie() const{
 }
 
 std::vector<std::vector<bool>> terrain::labyrinthe() const{
-    return d_terrain;
+    return d_labyrinthe;
 }
 
 bool terrain::estUnMur(const position& p) const{
-    return d_terrain[p.positionLigne()][p.positionColonne()];
+    return d_labyrinthe[p.positionLigne()][p.positionColonne()];
 }
 
 void terrain::changeenMur(const position& p){
-    d_terrain[p.positionLigne()][p.positionColonne()] = true ;
+    d_labyrinthe[p.positionLigne()][p.positionColonne()] = true ;
 }
 
 int terrain::tailleTableau() const
 {
-    return d_terrain.size();
+    return d_labyrinthe.size();
 }
 
-/*
-void terrain::litUnTerrain(std::istream& ist){
-    fichiers::read d{};
-    *this = d.readTerrain(ist);
+terrain terrain::litUnTerrain(fichiers::read& r)
+{
+    return r.readTerrain();
 }
-
-void terrain::ecritUnTerrain(std::ostream& ost) const{
-    fichiers::save s{};
-    s.saveTerrain(ost);
-}
-*/
 

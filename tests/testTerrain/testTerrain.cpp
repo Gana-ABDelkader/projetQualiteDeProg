@@ -1,15 +1,15 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#define DOCTEST_CONFIG_NO_MULTITHREADING
 #include"../../doctest.h"
 #include "../../terrain.h"
+#include <sstream>
+#include<string>
 
 TEST_CASE("Les constructeurs marchent bien"){
     SUBCASE("Le constructeur par défaut marche bien"){
         terrain t{};
 
-        REQUIRE_EQ(t.caseEntree(),position{1,1});
-        REQUIRE_EQ(t.caseSortie(),position{1,1});
-        REQUIRE_EQ(t.labyrinthe(),std::vector<std::vector<bool>>{{true,true,true,true,true},{true,false,false,false,true},{true,false,false,false,true},{true,false,false,false,true},{true,true,true,true,true}});
+        REQUIRE_EQ(t.caseEntree(),position{-1,-1});
+        REQUIRE_EQ(t.caseSortie(),position{-1,-1});
+        REQUIRE_EQ(t.labyrinthe(),std::vector<std::vector<bool>>{});
     }
     SUBCASE("Le constructeur avec en paramètre un terrain, une entrée et une sortie marche bien"){
         std::vector<std::vector<bool>> labyrinthe{{true,true,true,true,true},{true,false,false,false,true},{true,false,false,false,true},{true,false,false,false,true},{true,true,true,true,true}};
@@ -19,15 +19,22 @@ TEST_CASE("Les constructeurs marchent bien"){
         REQUIRE_EQ(t.caseEntree(),entree);
         REQUIRE_EQ(t.caseSortie(),sortie);
     }
-/*
-    SUBCASE("Le constructeur avec ifstream marche bien"){
-
-    }
-*/
 }
 
 TEST_CASE("Les méthodes du terrain marchent bien"){
     terrain t{};
+    std::string laby{"xxxxx\nx⎆..x\nx🔙..x\nx...x\nxxxxx"};
+    std::istringstream ist{laby};
+    fichiers::readSimpleAmeliore r(ist);
+    t=t.litUnTerrain(r);
+
+    SUBCASE("La méthode qui lit un terrain fonctionne"){
+        std::vector<std::vector<bool>> labyrinthe{{true,true,true,true,true},{true,false,false,false,true},{true,false,false,false,true},{true,false,false,false,true},{true,true,true,true,true}};
+        REQUIRE_EQ(t.caseEntree(),position{1,1});
+        REQUIRE_EQ(t.caseSortie(),position{2,1});
+        REQUIRE_EQ(t.labyrinthe(),labyrinthe);
+    }
+
     SUBCASE("La méthode qui renvoie si c'est un mur marche bien"){
         position pmur{0,0},pvide{1,1};
         REQUIRE(t.estUnMur(pmur));
