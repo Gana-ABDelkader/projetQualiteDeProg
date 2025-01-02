@@ -38,6 +38,13 @@ int terrain::tailleTableau() const
     return d_labyrinthe.size();
 }
 
+bool terrain::sortDuTableau(const position& p) const
+{
+    int i = p.positionLigne();
+    int j = p.positionColonne();
+    return i<0 || i>d_labyrinthe.size()-1 || j<0 || j>d_labyrinthe[0].size()-1;
+}
+
 terrain terrain::litUnTerrain(fichiers::read& r)
 {
     return r.readTerrain();

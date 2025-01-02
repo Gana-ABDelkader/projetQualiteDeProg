@@ -32,19 +32,19 @@ terrain robot::terrainDeLabyrinthe() const
     return d_terrain;
 }
 
-robot& robot::setPosition(const position& pos) 
+robot& robot::setPosition(const position& pos)
 {
     d_position = pos;
     return *this;
 }
 
-robot& robot::setDirection(const direction& d) 
+robot& robot::setDirection(const direction& d)
 {
     d_direction = d;
     return *this;
 }
 
-robot& robot::setTerrain(const terrain& terrain) 
+robot& robot::setTerrain(const terrain& terrain)
 {
     d_terrain = terrain;
     return *this;
@@ -66,7 +66,6 @@ position robot::calculateNewPosition() const
         case direction::GAUCHE:
         pos = {d_position.positionLigne(),d_position.positionColonne()-1};
         break;
-  
     }
     return pos;
 }
@@ -87,7 +86,7 @@ robot& robot::move()
 
 }
 
-robot& robot::turnLeft() 
+robot& robot::turnLeft()
 {
     d_direction.RotateLeft();
     notifieTousLesObservateurs();
@@ -106,6 +105,13 @@ bool robot::obstacleAdroite() const
     robot robotTemp = *this;
     robotTemp.turnRight();
     return robotTemp.detectObstacle(robotTemp.calculateNewPosition());
+}
+
+position robot::positionADroite() const
+{
+    robot robotTemp = *this;
+    robotTemp.turnRight();
+    return robotTemp.calculateNewPosition();
 }
 
 void robot::ajouterObservateur(std::unique_ptr<observateur> o)

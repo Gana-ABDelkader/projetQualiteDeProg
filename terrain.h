@@ -18,6 +18,7 @@ class terrain
 
         bool estUnMur(const position& p) const;
         int tailleTableau() const;
+        bool sortDuTableau(const position& p) const;
         void changeenMur(const position& p);
 
         terrain litUnTerrain(fichiers::read& r);
