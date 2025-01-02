@@ -10,6 +10,9 @@ class position
     int positionColonne() const;
     void setLigne(int ligne) ;
     void setColonne(int colonne) ;
+
+    bool operator==(const position& pos) const;
+    bool operator!=(const position& pos) const;
     
 private:
     int d_posLigne, d_posColonne;

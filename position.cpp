@@ -27,3 +27,13 @@ void position::setColonne(int colonne)
 {
     d_posColonne = colonne;
 }
+
+bool position::operator==(const position& pos) const
+{
+    return d_posLigne == pos.d_posLigne && d_posColonne == pos.d_posColonne;
+}
+
+bool position::operator!=(const position& pos) const
+{
+    return !(*this == pos);
+}

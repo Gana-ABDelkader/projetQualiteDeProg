@@ -111,6 +111,7 @@ bool robot::obstacleAdroite() const
 void robot::ajouterObservateur(std::unique_ptr<observateur> o)
 {
     d_observateurs.push_back(std::move(o));
+    //o->observe(*this);
 }
 
 void robot::notifieTousLesObservateurs() const
