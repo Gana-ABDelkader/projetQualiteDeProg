@@ -1,47 +1,32 @@
 #include "direction.h"
 
 direction::direction() :
-    d_valeur{valeur::BAS}
+    d_valeur{HAUT}
 {}
 
-direction::direction(valeur v) :
-    d_valeur{v}
+direction::direction(int valeur) :
+    d_valeur{valeur}
 {}
 
-direction::valeur direction::valeurDirection() const
+int direction::valeurDirection() const
 {
     return d_valeur;
 }
 
-int direction::valeurDirectionInt() const
+direction& direction::setDirection(int valeur)
 {
-    return static_cast<int>(d_valeur);
-}
-
-direction& direction::setDirection(valeur v)
-{
-    d_valeur = v;
+    d_valeur = valeur;
     return *this;
 }
 
 direction& direction::RotateLeft()
 {
-    d_valeur = static_cast<valeur>((valeurDirectionInt()+3)%4);
+    d_valeur = (valeurDirection()+3)%4;
     return *this;
 }
 
 direction& direction::RotateRight()
 {
-    d_valeur = static_cast<valeur>((valeurDirectionInt()+1)%4);
+    d_valeur = (valeurDirection()+1)%4;
     return *this;
-}
-
-bool direction::operator==(const direction& d) const
-{
-    return d_valeur == d.valeurDirection();
-}
-
-bool direction::operator!=(const direction& d) const
-{
-    return d_valeur != d.valeurDirection();
 }

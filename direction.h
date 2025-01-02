@@ -3,27 +3,22 @@
 
 class direction
 {public:
-    enum class valeur {
-    HAUT = 0,
-    DROITE = 1,
-    BAS = 2,
-    GAUCHE = 3
-    };
+    static const int HAUT = 0;
+    static const int DROITE = 1;
+    static const int BAS = 2;
+    static const int GAUCHE = 3;
+
     direction();
-    direction(valeur v);
+    direction(int valeur);
 
-    valeur valeurDirection() const;
-    int valeurDirectionInt() const;
+    int valeurDirection() const;
 
-    direction& setDirection(valeur v);
+    direction& setDirection(int valeur);
     direction& RotateLeft();
     direction& RotateRight();
 
-    bool operator==(const direction& d) const;
-    bool operator!=(const direction& d) const;
-
 private:
-    valeur d_valeur;
+    int d_valeur;
 };
 
 
