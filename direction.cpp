@@ -1,7 +1,7 @@
 #include "direction.h"
 
 direction::direction() :
-    d_valeur{HAUT}
+    d_valeur{BAS}
 {}
 
 direction::direction(int valeur) :

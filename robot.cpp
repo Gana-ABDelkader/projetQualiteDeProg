@@ -54,16 +54,16 @@ position robot::calculateNewPosition() const
 {
     position pos;
     switch(d_direction.valeurDirection()) {
-        case direction::valeur::HAUT:
+        case direction::HAUT:
         pos = {d_position.positionLigne()-1,d_position.positionColonne()};
         break;
-        case direction::valeur::BAS:
+        case direction::BAS:
         pos = {d_position.positionLigne()+1,d_position.positionColonne()};
         break;
-        case direction::valeur::DROITE:
+        case direction::DROITE:
         pos = {d_position.positionLigne(),d_position.positionColonne()+1};
         break;
-        case direction::valeur::GAUCHE:
+        case direction::GAUCHE:
         pos = {d_position.positionLigne(),d_position.positionColonne()-1};
         break;
   
@@ -111,7 +111,7 @@ bool robot::obstacleAdroite() const
 void robot::ajouterObservateur(std::unique_ptr<observateur> o)
 {
     d_observateurs.push_back(std::move(o));
-    //o->observe(*this);
+    o->observe(*this);
 }
 
 void robot::notifieTousLesObservateurs() const

@@ -2,6 +2,7 @@
 #define OBSERVATEUR_H
 
 #include<memory>
+#include<iostream>
 #include "position.h"
 #include "direction.h"
 
@@ -16,7 +17,6 @@ public:
     virtual std::unique_ptr<observateur> clone() const = 0;
     position positionRobot() const ;
     direction directionRobot() const ;
-    int directionRobotInt() const ; //une valeur de 0 a 3 [0 = HAUT, 1 = DROITE, 2 = BAS, 3 = GAUCHE]
 private:
     position d_positionRobot;
     direction d_directionRobot;
@@ -24,12 +24,9 @@ private:
 
 class observateurAffichage : public observateur
 {public:
-    observateurAffichage(std::istream& ist = std::cin, std::ostream& ost = std::cout);
+    observateurAffichage() = default;
     void observe(const robot& r) override;
     std::unique_ptr<observateur> clone() const override;
-private:    
-    std::istream& d_ist;
-    std::ostream& d_ost;
 };
 
 class observateurCompteur : public observateur
@@ -48,6 +45,7 @@ private:
 
 class observateurCompteurAvancement : public observateurCompteur
 {public:
+    observateurCompteurAvancement() ;
     observateurCompteurAvancement(int compteur) ;
     void observe(const robot& r) override;
     std::unique_ptr<observateur> clone() const override;
@@ -57,6 +55,7 @@ private:
 
 class observateurCompteurRotation : public observateurCompteur
 {public:
+    observateurCompteurRotation() ;
     observateurCompteurRotation(int compteur) ;
     void observe(const robot& r) override;
     std::unique_ptr<observateur> clone() const override;

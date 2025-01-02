@@ -11,11 +11,6 @@ void observateur::observe(const robot& r)
     d_directionRobot = r.directionSurTerrain();
 }
 
-int observateur::directionRobotInt() const
-{
-    return d_directionRobot.valeurDirectionInt();
-}
-
 direction observateur::directionRobot() const
 {
     return d_directionRobot;
@@ -25,20 +20,17 @@ position observateur::positionRobot() const
 {
     return d_positionRobot;
 }
-observateurAffichage::observateurAffichage(std::istream& ist = std::cin, std::ostream& ost = std::cout) :
-    observateur{}, d_ist{ist}, d_ost{ost}
-{}
 
 void observateurAffichage::observe(const robot& r) 
 {
     observateur::observe(r);
-    d_ost << "Position du robot : x -> " << positionRobot().positionLigne() << " y -> " << positionRobot().positionColonne() << std::endl;
-    d_ost << "Direction du robot : " << directionRobotInt() << std::endl;
+    std::cout << "Position du robot : x -> " << positionRobot().positionLigne() << " y -> " << positionRobot().positionColonne() << std::endl;
+    std::cout << "Direction du robot : " << directionRobot().valeurDirection() << std::endl;
 }
 
 std::unique_ptr<observateur> observateurAffichage::clone() const 
 {
-    return std::make_unique<observateurAffichage>(d_ist, d_ost);
+    return std::make_unique<observateurAffichage>();
 }
 
 observateurCompteur::observateurCompteur() :
@@ -69,6 +61,10 @@ void observateurCompteur::incrementerCompteur()
     d_compteur++;
 }
 
+observateurCompteurAvancement::observateurCompteurAvancement() :
+    observateurCompteur{}
+{}
+
 observateurCompteurAvancement::observateurCompteurAvancement(int compteur) :
     observateurCompteur{compteur}
 {}
@@ -95,6 +91,10 @@ std::unique_ptr<observateur> observateurCompteurAvancement::clone() const
     return std::make_unique<observateurCompteurAvancement>(compteur());
 }
 
+observateurCompteurRotation::observateurCompteurRotation() :
+    observateurCompteur{}
+{}
+
 observateurCompteurRotation::observateurCompteurRotation(int compteur) :
     observateurCompteur{compteur}
 {}
@@ -104,16 +104,21 @@ void observateurCompteurRotation::observe(const robot& r)
     observateur::observe(r);
     if(! estInitialise()) {
         initialiser();
-        //d_directionPrecedente.setDirection(directionRobot());
+        d_directionPrecedente = directionRobot();
     }
    else
    {
-        if(directionRobotInt() != d_directionPrecedente.valeurDirectionInt())
+        if(directionRobot().valeurDirection() != d_directionPrecedente.valeurDirection())
         {
             incrementerCompteur();
             d_directionPrecedente = directionRobot();
         }
    }
+}
+
+std::unique_ptr<observateur> observateurCompteurRotation::clone() const
+{
+    return std::make_unique<observateurCompteurRotation>(compteur());
 }
 
 

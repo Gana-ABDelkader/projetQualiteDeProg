@@ -2,14 +2,22 @@
 
 using namespace std;
 
-#include"position.h"
 #include"robot.h"
+#include"observateur.h"
 int main() {
-    position p{2,5};
+    /*position p{1,2};
     robot r{};
     r.setPosition(p);
-    cout << p.positionLigne() << " " << p.positionColonne() << endl;
-    cout << r.positionSurTerrain().positionLigne() << " " << r.positionSurTerrain().positionColonne() << endl;
+    observateurAffichage obs{}; // Default construction
+    observateurCompteurAvancement obs2{}; // Default construction
+    r.ajouterObservateur(std::make_unique<observateurAffichage>());
+    r.ajouterObservateur(std::make_unique<observateurCompteurAvancement>());
+    r.move();
+    cout<< r.positionSurTerrain().positionLigne()<<endl;
+    cout<< r.positionSurTerrain().positionColonne()<<endl;
+    cout<< obs2.compteur()<< endl;
+    cout<< "DONE"<<endl;*/
+    cout<<"Hello World"<<endl;
     return 0;
 } 
 
