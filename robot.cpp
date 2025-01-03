@@ -77,13 +77,9 @@ bool robot::detectObstacle(const position& pos) const
 
 robot& robot::move()
 {
-    position pos = calculateNewPosition();
-    if(!detectObstacle(pos)) {
-        d_position = pos;
-        notifieTousLesObservateurs();
-    }
+    d_position = calculateNewPosition();
+    notifieTousLesObservateurs();
     return *this;
-
 }
 
 robot& robot::turnLeft()

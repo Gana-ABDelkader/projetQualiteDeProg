@@ -70,11 +70,9 @@ TEST_CASE("La methode calculatePosition fonctionne correctement"){
 il faut que j'attend que les methodes de terrain soient tester*/
 TEST_CASE("La methode detectObstacle fonctionne correctement"){ 
     SUBCASE("Il y a un obstacle"){
-        terrain t{};
+        terrain t{}; //les bords sont des murs
         robot r{{1,1},direction::HAUT,t};
-        r.move();
-        REQUIRE_EQ(r.positionSurTerrain().positionLigne(), 1);
-        REQUIRE_EQ(r.positionSurTerrain().positionColonne(), 1);
+        REQUIRE_UNARY(r.detectObstacle({0,1}));
     }
 }
 
