@@ -9,19 +9,21 @@
 #include "caractereLabyrinthe.h"
 
 class terrain;
+class robot;
 
 namespace fichiers{
 
 class save
 {
 public:
-    save(std::ostream& ost,const terrain& t);
+    save(std::ostream& ost,const robot& r);
     virtual ~save() =default;
     virtual void saveTerrain() =0;
 protected:
     testCasesVector d_labyrinthe;
     position d_entree;
     position d_sortie;
+    position d_posRobot;
     std::ostream& d_ost;
 private:
     virtual std::string traiterCasesVecteur2D(int ligne, int colonne) const =0;
@@ -33,7 +35,7 @@ private:
 class saveSimple : public save
 {
 public:
-    saveSimple(std::ostream& ost,const terrain& t);
+    saveSimple(std::ostream& ost,const robot& r);
     void saveTerrain() override;
 private:
     std::string traiterCasesVecteur2D(int ligne, int colonne) const override;
@@ -45,7 +47,7 @@ private:
 class saveAmeliore1 : public save
 {
 public:
-    saveAmeliore1(std::ostream& ost,const terrain& t);
+    saveAmeliore1(std::ostream& ost,const robot& r);
     void saveTerrain() override;
 private:
     caractereLabyrintheAmeliore1 d_labyr;
@@ -59,7 +61,7 @@ private:
 class saveAmeliore2 : public save
 {
 public:
-    saveAmeliore2(std::ostream& ost,const terrain& t);
+    saveAmeliore2(std::ostream& ost,const robot& r);
     void saveTerrain() override;
 private:
     caractereLabyrintheAmeliore2 d_labyr;

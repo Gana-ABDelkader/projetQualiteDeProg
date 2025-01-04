@@ -5,18 +5,20 @@
 #include "position.h"
 #include <windows.h>
 #include "operateursGlobaux.h"
+#include "robot.h"
 
 namespace fichiers{
 
-save::save(std::ostream& ost, const terrain& t):
-    d_labyrinthe{t.labyrinthe()},
-    d_entree{t.caseEntree()},
-    d_sortie{t.caseSortie()},
+save::save(std::ostream& ost, const robot& r):
+    d_labyrinthe{r.terrainDeLabyrinthe().labyrinthe()},
+    d_entree{r.terrainDeLabyrinthe().caseEntree()},
+    d_sortie{r.terrainDeLabyrinthe().caseSortie()},
+    d_posRobot{r.positionSurTerrain()},
     d_ost{ost}
 {}
 
-saveSimple::saveSimple(std::ostream& ost, const terrain& t):
-    save{ost,t}
+saveSimple::saveSimple(std::ostream& ost, const robot& r):
+    save{ost,r}
 {}
 
 std::string saveSimple::traiterCasesVecteur2D(int ligne, int colonne) const
@@ -31,6 +33,10 @@ std::string saveSimple::traiterCasesVecteur2D(int ligne, int colonne) const
         if (ligne == d_entree.positionLigne() && colonne == d_entree.positionColonne())
         {
             resultat = "⎆";
+        }
+        else if(ligne==d_posRobot.positionLigne() && colonne==d_posRobot.positionColonne())
+        {
+            resultat = ">";
         }
         else if (ligne == d_sortie.positionLigne() && colonne == d_sortie.positionColonne())
         {
@@ -65,8 +71,8 @@ void saveSimple::saveTerrain()
 
 /**-----------------------------------------------------------------------------------**/
 
-saveAmeliore1::saveAmeliore1(std::ostream& ost, const terrain& t):
-    save{ost,t}, d_labyr{d_labyrinthe.nbLigne(),d_labyrinthe.nbColonne()}
+saveAmeliore1::saveAmeliore1(std::ostream& ost, const robot& r):
+    save{ost,r}, d_labyr{d_labyrinthe.nbLigne(),d_labyrinthe.nbColonne()}
 {}
 
 
@@ -122,6 +128,10 @@ std::string saveAmeliore1::traiterCasesVecteur2D(int ligne, int colonne) const
                 {
                     resultat="entree";
                 }
+                else if(ligne==d_posRobot.positionLigne() && colonne==d_posRobot.positionColonne())
+                {
+                    resultat = ">";
+                }
                 else if (ligne == d_sortie.positionLigne() && colonne == d_sortie.positionColonne())
                 {
                     resultat="sortie";
@@ -158,8 +168,8 @@ void saveAmeliore1::saveTerrain()
 
 /**-------------------------------------------------------------------------------------------**/
 
-saveAmeliore2::saveAmeliore2(std::ostream& ost, const terrain& t):
-    save{ost,t}, d_labyr{d_labyrinthe.nbLigne(),d_labyrinthe.nbColonne()}
+saveAmeliore2::saveAmeliore2(std::ostream& ost, const robot& r):
+    save{ost,r}, d_labyr{d_labyrinthe.nbLigne(),d_labyrinthe.nbColonne()}
 {}
 
 std::string saveAmeliore2::renvoieBonCararactereExterieur(int ligne, int colonne) const
@@ -301,6 +311,10 @@ std::string saveAmeliore2::traiterCasesVecteur2D(int ligne, int colonne) const
                 if (ligne == d_entree.positionLigne() && colonne == d_entree.positionColonne())
                 {
                     resultat="entree";
+                }
+                else if(ligne==d_posRobot.positionLigne() && colonne==d_posRobot.positionColonne())
+                {
+                    resultat = ">";
                 }
                 else if (ligne == d_sortie.positionLigne() && colonne == d_sortie.positionColonne())
                 {
