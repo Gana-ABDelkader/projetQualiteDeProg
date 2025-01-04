@@ -9,7 +9,7 @@
 
 namespace fichiers{
 
-save::save(std::ostream& ost, const robot& r):
+print::print(std::ostream& ost, const robot& r):
     d_labyrinthe{r.terrainDeLabyrinthe().labyrinthe()},
     d_entree{r.terrainDeLabyrinthe().caseEntree()},
     d_sortie{r.terrainDeLabyrinthe().caseSortie()},
@@ -17,11 +17,11 @@ save::save(std::ostream& ost, const robot& r):
     d_ost{ost}
 {}
 
-saveSimple::saveSimple(std::ostream& ost, const robot& r):
-    save{ost,r}
+printSimple::printSimple(std::ostream& ost, const robot& r):
+    print{ost,r}
 {}
 
-std::string saveSimple::traiterCasesVecteur2D(int ligne, int colonne) const
+std::string printSimple::traiterCasesVecteur2D(int ligne, int colonne) const
 {
     std::string resultat="";
     if (d_labyrinthe.estMur(ligne,colonne))
@@ -50,17 +50,17 @@ std::string saveSimple::traiterCasesVecteur2D(int ligne, int colonne) const
     return resultat;
 }
 
-void saveSimple::enregistreLigne(int ligne)
+void printSimple::enregistreLigne(int ligne)
 {
-    for (size_t j = 0; j < d_labyrinthe.nbColonne(); j++)
+    for (int j = 0; j < d_labyrinthe.nbColonne(); j++)
     {
         d_ost << traiterCasesVecteur2D(ligne,j);
     }
 }
 
-void saveSimple::saveTerrain()
+void printSimple::printTerrain()
 {
-    for (size_t i = 0; i < d_labyrinthe.nbLigne()-1; ++i)
+    for (int i = 0; i < d_labyrinthe.nbLigne()-1; ++i)
     {
         enregistreLigne(i);
         d_ost << std::endl;
@@ -71,18 +71,18 @@ void saveSimple::saveTerrain()
 
 /**-----------------------------------------------------------------------------------**/
 
-saveAmeliore1::saveAmeliore1(std::ostream& ost, const robot& r):
-    save{ost,r}, d_labyr{d_labyrinthe.nbLigne(),d_labyrinthe.nbColonne()}
+printAmeliore1::printAmeliore1(std::ostream& ost, const robot& r):
+    print{ost,r}, d_labyr{d_labyrinthe.nbLigne(),d_labyrinthe.nbColonne()}
 {}
 
 
 
-std::string saveAmeliore1::traiterCasesVecteur2D(int ligne, int colonne) const
+std::string printAmeliore1::traiterCasesVecteur2D(int ligne, int colonne) const
 {
     std::string resultat;
 
-    size_t hauteur = d_labyrinthe.nbLigne();
-    size_t largeur = d_labyrinthe.nbColonne();
+    int hauteur = d_labyrinthe.nbLigne();
+    int largeur = d_labyrinthe.nbColonne();
 
     if (d_labyrinthe.estMur(ligne,colonne))
             {
@@ -145,19 +145,19 @@ std::string saveAmeliore1::traiterCasesVecteur2D(int ligne, int colonne) const
 }
 
 
-void saveAmeliore1::enregistreLigne(int ligne)
+void printAmeliore1::enregistreLigne(int ligne)
 {
-    for (size_t j = 0; j < d_labyrinthe.nbColonne(); j++)
+    for (int j = 0; j < d_labyrinthe.nbColonne(); j++)
     {
         d_labyr(ligne,j)=traiterCasesVecteur2D(ligne,j);
     }
 }
 
 
-void saveAmeliore1::saveTerrain()
+void printAmeliore1::printTerrain()
 {
 
-    for (size_t i = 0; i < d_labyrinthe.nbLigne(); ++i)
+    for (int i = 0; i < d_labyrinthe.nbLigne(); ++i)
     {
         enregistreLigne(i);
     }
@@ -168,11 +168,11 @@ void saveAmeliore1::saveTerrain()
 
 /**-------------------------------------------------------------------------------------------**/
 
-saveAmeliore2::saveAmeliore2(std::ostream& ost, const robot& r):
-    save{ost,r}, d_labyr{d_labyrinthe.nbLigne(),d_labyrinthe.nbColonne()}
+printAmeliore2::printAmeliore2(std::ostream& ost, const robot& r):
+    print{ost,r}, d_labyr{d_labyrinthe.nbLigne(),d_labyrinthe.nbColonne()}
 {}
 
-std::string saveAmeliore2::renvoieBonCararactereExterieur(int ligne, int colonne) const
+std::string printAmeliore2::renvoieBonCararactereExterieur(int ligne, int colonne) const
 {
     if(ligne==0)
     {
@@ -220,7 +220,7 @@ std::string saveAmeliore2::renvoieBonCararactereExterieur(int ligne, int colonne
     }
 }
 
-std::string saveAmeliore2::renvoieBonCararactereInterieur(int ligne, int colonne) const
+std::string printAmeliore2::renvoieBonCararactereInterieur(int ligne, int colonne) const
 {
     if(d_labyrinthe.estIntersection4Mur(ligne, colonne))
     {
@@ -269,10 +269,10 @@ std::string saveAmeliore2::renvoieBonCararactereInterieur(int ligne, int colonne
 
 }
 
-std::string saveAmeliore2::traiterCasesVecteur2D(int ligne, int colonne) const
+std::string printAmeliore2::traiterCasesVecteur2D(int ligne, int colonne) const
 {
-    size_t hauteur = d_labyrinthe.nbLigne();
-    size_t largeur = d_labyrinthe.nbColonne();
+    int hauteur = d_labyrinthe.nbLigne();
+    int largeur = d_labyrinthe.nbColonne();
 
     std::string resultat;
 
@@ -296,7 +296,7 @@ std::string saveAmeliore2::traiterCasesVecteur2D(int ligne, int colonne) const
                 }
                 else
                 {
-                    if(ligne==0 || ligne== hauteur-1 || colonne==0 | colonne==largeur-1)
+                    if(ligne==0 || ligne== hauteur-1 || colonne==0 || colonne==largeur-1)
                     {
                         resultat=renvoieBonCararactereExterieur(ligne,colonne);
                     }
@@ -328,17 +328,17 @@ std::string saveAmeliore2::traiterCasesVecteur2D(int ligne, int colonne) const
     return resultat;
 }
 
-void saveAmeliore2::enregistreLigne(int ligne)
+void printAmeliore2::enregistreLigne(int ligne)
 {
-    for (size_t j = 0; j < d_labyrinthe.nbColonne(); j++)
+    for (int j = 0; j < d_labyrinthe.nbColonne(); j++)
     {
         d_labyr(ligne,j)=traiterCasesVecteur2D(ligne,j);
     }
 }
 
-void saveAmeliore2::saveTerrain()
+void printAmeliore2::printTerrain()
 {
-    for (size_t i = 0; i < d_labyrinthe.nbLigne(); ++i)
+    for (int i = 0; i < d_labyrinthe.nbLigne(); ++i)
     {
         enregistreLigne(i);
     }

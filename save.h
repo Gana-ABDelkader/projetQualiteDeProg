@@ -13,12 +13,12 @@ class robot;
 
 namespace fichiers{
 
-class save
+class print
 {
 public:
-    save(std::ostream& ost,const robot& r);
-    virtual ~save() =default;
-    virtual void saveTerrain() =0;
+    print(std::ostream& ost,const robot& r);
+    virtual ~print() =default;
+    virtual void printTerrain() =0;
 protected:
     testCasesVector d_labyrinthe;
     position d_entree;
@@ -32,11 +32,11 @@ private:
 
 
 
-class saveSimple : public save
+class printSimple : public print
 {
 public:
-    saveSimple(std::ostream& ost,const robot& r);
-    void saveTerrain() override;
+    printSimple(std::ostream& ost,const robot& r);
+    void printTerrain() override;
 private:
     std::string traiterCasesVecteur2D(int ligne, int colonne) const override;
     void enregistreLigne(int ligne) override;
@@ -44,11 +44,11 @@ private:
 
 
 
-class saveAmeliore1 : public save
+class printAmeliore1 : public print
 {
 public:
-    saveAmeliore1(std::ostream& ost,const robot& r);
-    void saveTerrain() override;
+    printAmeliore1(std::ostream& ost,const robot& r);
+    void printTerrain() override;
 private:
     caractereLabyrintheAmeliore1 d_labyr;
 
@@ -58,11 +58,11 @@ private:
 
 
 
-class saveAmeliore2 : public save
+class printAmeliore2 : public print
 {
 public:
-    saveAmeliore2(std::ostream& ost,const robot& r);
-    void saveTerrain() override;
+    printAmeliore2(std::ostream& ost,const robot& r);
+    void printTerrain() override;
 private:
     caractereLabyrintheAmeliore2 d_labyr;
 
