@@ -18,6 +18,7 @@ public:
     virtual std::vector<bool> readLigne(int indiceLigne) =0;
     position entree() const;
     position sortie() const;
+    position posRobot() const;
 
 private:
     virtual bool traiteCaractere(char caractere, int& j, int indiceColonne) =0;
@@ -25,6 +26,7 @@ private:
 protected:
     position d_entree;
     position d_sortie;
+    position d_posRobot;
     int d_indiceLigne;
     std::string d_ligne;
 };

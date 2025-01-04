@@ -8,7 +8,7 @@ namespace fichiers
 {
 
 readVector::readVector(std::istream& ist):
-    d_ligne{}, d_entree{-1,-1} , d_sortie{-1,-1}
+    d_ligne{}, d_entree{-1,-1} , d_sortie{-1,-1}, d_posRobot{-1,-1}
 {
     std::getline(ist,d_ligne);
 }
@@ -23,6 +23,11 @@ position readVector::sortie() const
     return d_sortie;
 }
 
+position readVector::posRobot() const
+{
+    return d_posRobot;
+}
+
 readVectorSimpleAmeliore::readVectorSimpleAmeliore(std::istream& ist):
     readVector{ist}
 {}
@@ -34,6 +39,12 @@ bool readVectorSimpleAmeliore::traiteCaractere(char caractere, int& j, int indic
        if(caractere=='.')
        {
             valeurCaractereBool = false;
+       }
+       else if(caractere=='>')
+       {
+           valeurCaractereBool = false;
+           d_posRobot.setLigne(d_indiceLigne);
+           d_posRobot.setColonne(indiceColonne);
        }
        else if(caractereHexa==premierOctetCaractereEntree)
        {
@@ -80,6 +91,12 @@ bool readVectorAmeliore2::traiteCaractere(char caractere, int& j, int indiceColo
        if(caractere=='.')
        {
         valeurCaractereBool = false;
+       }
+       else if(caractere=='>')
+       {
+           valeurCaractereBool = false;
+           d_posRobot.setLigne(d_indiceLigne);
+           d_posRobot.setColonne(indiceColonne);
        }
        else if(caractereHexa==premierOctetCaractereMurEtCaractereEntree)
        {
