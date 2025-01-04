@@ -1,12 +1,13 @@
 #include "algoMainDroite.h"
-#include "robot.h"
-#include "terrain.h"
-#include "direction.h"
+#include "read.h"
+#include "save.h"
 
-#include <iostream>
-using namespace std;
+using fichiers::read;
+using fichiers::print;
 
-void mainDroite::reDirectionRobot(robot& r, terrain& t) const{
+
+
+void mainDroite::reDirectionRobot(robot& r, const terrain& t) const{
     position posSuivante = r.calculateNewPosition();
     bool condition = true;
     if(r.positionSurTerrain() != t.caseSortie()){
@@ -29,7 +30,7 @@ void mainDroite::reDirectionRobot(robot& r, terrain& t) const{
     }
 }
 
-void mainDroite::algoSortie(robot& r, terrain& t) const{
+void mainDroite::algoSortie(std::unique_ptr<print> ecrire, robot& r, const terrain& t) const{
     //Tant que je suis pas dehors
     while(r.positionSurTerrain() != t.caseSortie()){
         position posSuivante = r.calculateNewPosition();
@@ -49,37 +50,35 @@ void mainDroite::algoSortie(robot& r, terrain& t) const{
                     }
                     else{
                         r.turnLeft();
-                        ///INCREMENTER LES OBSERVATEURS
                     }
                 }
             }
             //Sinon je vais toujours le plus à droite pour attraper un mur à ma droite
             else{
                 r.turnRight();
-                ///INCREMENTER LES OBSERVATEURS
                 r.setPosition(r.calculateNewPosition());
-                ///INCREMENTER LES OBSERVATEURS
             }
         }
         else{
             //Si y'a un mur à droite frocément j'avance
             if(r.obstacleAdroite()){
                 r.setPosition(posSuivante);
-                ///INCREMENTER LES OBSERVATEURS
             }
             //Sinon je vais toujours le plus à droite pour attraper un mur à ma droite
             else{
                 r.turnRight();
-                ///INCREMENTER LES OBSERVATEURS
                 r.setPosition(r.calculateNewPosition());
-                ///INCREMENTER LES OBSERVATEURS
             }
-
         }
+        ecrire->mettreRobotAJour(r);
+        ecrire->printTerrain();
     }
 }
 
-void mainDroite::exit(robot& r, terrain& t) const {
+void mainDroite::exit(std::unique_ptr<read> lire, std::unique_ptr<print> ecrire) const{
+    robot r = lire->readTerrain();
+    terrain t = r.terrainDeLabyrinthe();
+
     reDirectionRobot(r,t);
-    algoSortie(r,t);
+    algoSortie(std::move(ecrire), r, t);
 }

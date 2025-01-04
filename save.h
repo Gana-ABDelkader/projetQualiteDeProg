@@ -19,6 +19,7 @@ public:
     print(std::ostream& ost,const robot& r);
     virtual ~print() =default;
     virtual void printTerrain() =0;
+    void mettreRobotAJour(const robot& r);
 protected:
     testCasesVector d_labyrinthe;
     position d_entree;

@@ -7,7 +7,9 @@ class robot;
 
 class pledge : public exitMaze{
 public:
-    void exit(robot& r, terrain& t) const override;
+    void exit(std::unique_ptr<read> lire, std::unique_ptr<print> ecrire) const override;
+    void instruction1(std::unique_ptr<read> lire) const;
+    void instruction2(std::unique_ptr<read> lire) const;
 };
 
 

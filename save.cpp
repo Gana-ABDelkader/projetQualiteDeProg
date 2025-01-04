@@ -17,6 +17,10 @@ print::print(std::ostream& ost, const robot& r):
     d_ost{ost}
 {}
 
+void print::mettreRobotAJour(const robot &r){
+    d_posRobot = r.positionSurTerrain();
+}
+
 printSimple::printSimple(std::ostream& ost, const robot& r):
     print{ost,r}
 {}
@@ -66,6 +70,7 @@ void printSimple::printTerrain()
         d_ost << std::endl;
     }
     enregistreLigne(d_labyrinthe.nbLigne()-1);
+    d_ost << '\n';
 }
 
 
@@ -163,6 +168,7 @@ void printAmeliore1::printTerrain()
     }
     d_labyr.corrigerCaracteresDepandantDesAutres();
     d_ost<<d_labyr;
+    d_ost << '\n';
 
 }
 
@@ -344,6 +350,7 @@ void printAmeliore2::printTerrain()
     }
     d_labyr.corrigerCaracteresDepandantDesAutres();
     d_ost<<d_labyr;
+    d_ost << '\n';
 }
 
 
