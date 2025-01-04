@@ -1,14 +1,14 @@
-#include "doctest.h"
-#include "save.h"
+#include "../../doctest.h"
+#include "../../save.h"
 
 #include <iostream>
 #include <sstream>
 #include <string>
-#include "read.h"
-#include "terrain.h"
+#include "../../read.h"
+#include "../../terrain.h"
 #include <fstream>
 #include <windows.h>
-#include "robot.h"
+#include "../../robot.h"
 
 robot test_terrainSimpleAmeliore(const std::string& chaine)
 {
