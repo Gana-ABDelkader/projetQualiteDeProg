@@ -58,7 +58,6 @@ void observateurCompteur::initialiser()
 
 void observateurCompteur::incrementerCompteur()
 {
-    std::cout << "incrementerCompteur" << std::endl;
     d_compteur = d_compteur + 1;
 }
 
