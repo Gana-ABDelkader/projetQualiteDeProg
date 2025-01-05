@@ -83,7 +83,7 @@ void programme::labyrintheSimple(){
     std::ifstream fIN("TerrainSimple.txt");
     d_lire = std::make_unique<fichiers::readSimpleAmeliore>(fichiers::readSimpleAmeliore{fIN});
     robot r = d_lire->readTerrain();
-    d_ecrire = std::make_unique<fichiers::printAmeliore1>(fichiers::printAmeliore1{std::cout,r});
+    d_ecrire = std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r});
 }
 
 
