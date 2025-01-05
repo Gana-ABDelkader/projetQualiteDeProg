@@ -8,15 +8,16 @@
 #include "../../terrain.h"
 #include <fstream>
 #include <windows.h>
+#include "../../robot.h"
 
-terrain test_terrainSimpleAmeliore(const std::string& chaine)
+robot test_terrainSimpleAmeliore(const std::string& chaine)
 {
     std::istringstream ist{chaine};
     fichiers::readSimpleAmeliore r{ist};
     return r.readTerrain();
 }
 
-terrain test_terrainAmeliore2(const std::string& chaine)
+robot test_terrainAmeliore2(const std::string& chaine)
 {
     std::istringstream ist{chaine};
     fichiers::readAmeliore2 r{ist};
@@ -37,53 +38,53 @@ TEST_CASE("La classe save marche correctement")
 {
     SUBCASE("Si le labyrinthe est en caractère simple")
     {
-        std::string lab{"XXXXXXXXXXXXXXXXXXXX\nX......XXXX........X\nX..................X\nX..X...............X\nX..X........X......X\nX..X........X......X\nX⎆.X........X....🔙.X\nXXXXXXXXXXXXXXXXXXXX"};
-        terrain t{test_terrainSimpleAmeliore(lab)};
+        std::string lab{"XXXXXXXXXXXXXXXXXXXX\nX>.....XXXX........X\nX..................X\nX..X...............X\nX..X........X......X\nX..X........X......X\nX⎆.X........X....🔙.X\nXXXXXXXXXXXXXXXXXXXX"};
+        robot rob{test_terrainSimpleAmeliore(lab)};
         std::ostringstream ost;
-        fichiers::saveSimple s{ost,t};
-        s.saveTerrain();
-        std::string resultatSave{ost.str()};
+        fichiers::printSimple s{ost,rob};
+        s.printTerrain();
+        std::string resultatPrint{ost.str()};
         SUBCASE("La taille du fichier est correct")
         {
-            test_tailleFichier(resultatSave,lab);
+            test_tailleFichier(resultatPrint,lab);
         }
         SUBCASE("Le fichier possède les bon caractère")
         {
-            test_caracteresFichier(resultatSave,lab);
+            test_caracteresFichier(resultatPrint,lab);
         }
     }
     SUBCASE("Si le labyrinthe est en caractère ameliore1")
     {
-        std::string lab{"+------+##+--------+\n|......+--+........|\n|..................|\n|..|...............|\n|..|........|......|\n|..|........|......|\n|⎆.|........|....🔙.|\n+--+--------+------+"};
-        terrain t{test_terrainSimpleAmeliore(lab)};
+        std::string lab{"+------+##+--------+\n|>.....+--+........|\n|..................|\n|..|...............|\n|..|........|......|\n|..|........|......|\n|⎆.|........|....🔙.|\n+--+--------+------+"};
+        robot rob{test_terrainSimpleAmeliore(lab)};
         std::ostringstream ost;
-        fichiers::saveAmeliore1 s{ost,t};
-        s.saveTerrain();
-        std::string resultatSave{ost.str()};
+        fichiers::printAmeliore1 s{ost,rob};
+        s.printTerrain();
+        std::string resultatPrint{ost.str()};
         SUBCASE("La taille du fichier est correct")
         {
-            test_tailleFichier(resultatSave,lab);
+            test_tailleFichier(resultatPrint,lab);
         }
         SUBCASE("Le fichier possède les bon caractère")
         {
-            test_caracteresFichier(resultatSave,lab);
+            test_caracteresFichier(resultatPrint,lab);
         }
     }
     SUBCASE("Si le labyrinthe est en caractere ameliore2")
     {
-        std::string lab{"┏━━━━━━┓▄▄┏━━━━━━━━┓\n┃......┗━━┛........┃\n┃..................┃\n┃..┃...............┃\n┃..┃........┃......┃\n┃..┃........┃......┃\n┃⎆.┃........┃....🔙.┃\n┗━━┻━━━━━━━━┻━━━━━━┛"};
-        terrain t{test_terrainAmeliore2(lab)};
+        std::string lab{"┏━━━━━━┓▄▄┏━━━━━━━━┓\n┃>.....┗━━┛........┃\n┃..................┃\n┃..┃...............┃\n┃..┃........┃......┃\n┃..┃........┃......┃\n┃⎆.┃........┃....🔙.┃\n┗━━┻━━━━━━━━┻━━━━━━┛"};
+        robot rob{test_terrainAmeliore2(lab)};
         std::ostringstream ost;
-        fichiers::saveAmeliore2 s{ost,t};
-        s.saveTerrain();
-        std::string resultatSave{ost.str()};
+        fichiers::printAmeliore2 s{ost,rob};
+        s.printTerrain();
+        std::string resultatPrint{ost.str()};
         SUBCASE("La taille du fichier est correct")
         {
-            test_tailleFichier(resultatSave,lab);
+            test_tailleFichier(resultatPrint,lab);
         }
         SUBCASE("Le fichier possède les bon caractère")
         {
-            test_caracteresFichier(resultatSave,lab);
+            test_caracteresFichier(resultatPrint,lab);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿#include "../../ReadVector.h"
+﻿#include "../../readVector.h"
 #include "../../doctest.h"
 #include <sstream>
 #include <string>
@@ -25,10 +25,17 @@ void test_ValeursTableau(const std::vector<bool>& t)
 {
     std::vector<bool> flot={true,false,false,false,false,false,false,true,true,true,
             true,false,false,false,false,false,false,false,false,true};
-    for(int i=0; i<t.size();i++)
+    for(size_t i=0; i<t.size();i++)
     {
         REQUIRE_EQ(t[i],flot[i]);
     }
+}
+
+void test_positionRobot(const position& pos, int IdLigne)
+{
+    int IdColonne{1};
+    REQUIRE_EQ(pos.positionLigne(), IdLigne);
+    REQUIRE_EQ(pos.positionColonne(), IdColonne);
 }
 
 void test_TailleTableau(const std::vector<bool>& t, int tailleLigne)
@@ -38,8 +45,9 @@ void test_TailleTableau(const std::vector<bool>& t, int tailleLigne)
 
 TEST_CASE("Lire une ligne est correcte")
 {
-    position entree {0,0};
-    position sortie {0,0};
+    position entree {-1,-1};
+    position sortie {-1,-1};
+    position posRobot{-1,-1};
     SUBCASE("Si la ligne simple ou ameliore1 est vide")
     {
         SUBCASE("Le tableau est vide")
@@ -66,7 +74,7 @@ TEST_CASE("Lire une ligne est correcte")
     SUBCASE("Si la ligne est caractères simple")
     {
         int IdLigne=2;
-        std::string ligne="X..⎆...XXXX.....🔙..X";
+        std::string ligne="X>.⎆...XXXX.....🔙..X";
         std::istringstream ist {ligne};
         fichiers::readVectorSimpleAmeliore r{ist};
         std::vector<bool> t= r.readLigne(IdLigne);
@@ -88,12 +96,16 @@ TEST_CASE("Lire une ligne est correcte")
             {
                 test_Sortie(r.sortie(), IdLigne);
             }
+            SUBCASE("La valeur de posRobot est correcte")
+            {
+                test_positionRobot(r.posRobot(), IdLigne);
+            }
         }
 
     }
     SUBCASE("Si la ligne est caractères ameliore1")
     {
-        std::string ligne="|..⎆...+--+.....🔙..|";
+        std::string ligne="|>.⎆...+--+.....🔙..|";
         int IdLigne=2;
         std::istringstream ist {ligne};
         fichiers::readVectorSimpleAmeliore r{ist};
@@ -116,11 +128,16 @@ TEST_CASE("Lire une ligne est correcte")
             {
                 test_Sortie(r.sortie(),IdLigne);
             }
+            SUBCASE("Le robot est dans le labyrinthe")
+            {
+                test_positionRobot(r.posRobot(), IdLigne);
+
+            }
         }
     }
     SUBCASE("Si la ligne est caractères ameliore2")
     {
-        std::string ligne="┃..⎆...┗━━┛.....🔙..┃";
+        std::string ligne="┃>.⎆...┗━━┛.....🔙..┃";
         int IdLigne=2;
         std::istringstream ist {ligne};
         fichiers::readVectorAmeliore2 r{ist};
@@ -142,6 +159,10 @@ TEST_CASE("Lire une ligne est correcte")
             SUBCASE("La valeur de sortie est correcte")
             {
                 test_Sortie(r.sortie(),IdLigne);
+            }
+            SUBCASE("La valeur de posRobot est correcte")
+            {
+                test_positionRobot(r.posRobot(), IdLigne);
             }
         }
     }

@@ -14,6 +14,7 @@ class terrain
 
         position caseEntree() const;
         position caseSortie() const;
+
         std::vector<std::vector<bool>> labyrinthe() const;
 
         bool estUnMur(const position& p) const;

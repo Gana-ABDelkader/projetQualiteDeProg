@@ -1,9 +1,15 @@
-#include <iostream>
+#include <windows.h>
 
-using namespace std;
+#include "lancementProgramme.h"
+
+
+void deplacementRobotLabyrinthe(){
+    programme p{};
+    p.execute();
+}
 
 int main() {
-    cout << "Hello, World!" << endl;
-    return 0;
-} 
+    SetConsoleOutputCP(65001);
+    deplacementRobotLabyrinthe();
+}
 

@@ -1,5 +1,6 @@
 ﻿#include "terrain.h"
 #include"read.h"
+#include "robot.h"
 
 terrain::terrain(const std::vector<std::vector<bool>>& terr,const position& entree,const position& sortie)
  : d_labyrinthe{terr} , d_entree{entree}, d_sortie{sortie}
@@ -17,6 +18,7 @@ position terrain::caseEntree() const{
     return d_entree;
 }
 
+
 position terrain::caseSortie() const{
     return d_sortie;
 }
@@ -24,6 +26,8 @@ position terrain::caseSortie() const{
 std::vector<std::vector<bool>> terrain::labyrinthe() const{
     return d_labyrinthe;
 }
+
+
 
 bool terrain::estUnMur(const position& p) const{
     return d_labyrinthe[p.positionLigne()][p.positionColonne()];
@@ -47,6 +51,8 @@ bool terrain::sortDuTableau(const position& p) const
 
 terrain terrain::litUnTerrain(fichiers::read& r)
 {
-    return r.readTerrain();
+    return r.readTerrain().terrainDeLabyrinthe();
 }
+
+
 
