@@ -3,7 +3,7 @@
 
 #include "lancementProgramme.h"
 #include "robot.h"
-#include "algoMainDroite.h"
+
 
 using std::cout;
 using std::endl;
@@ -173,8 +173,7 @@ void programme::algorithmeMainDroite(){
         cout<<"Veuillez choisir le terrain et l'observateur avant l'algorithme"<<endl;
     }
     else{
-        mainDroite mD;
-        mD.exit(std::move(d_lire),std::move(d_ecrire));
+        d_algoSortie.algorithmeMainDroite(std::move(d_lire),std::move(d_ecrire));
     }
 }
 

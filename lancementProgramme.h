@@ -6,8 +6,11 @@
 
 #include "read.h"
 #include "save.h"
-#include "algorithmeSortie.h"
 #include "observateur.h"
+#include "algorithmeSortie.h"
+
+using fichiers::read;
+using fichiers::print;
 
 class programme{
 public:
@@ -44,6 +47,7 @@ private:
     int d_choixTerrain{0};
     std::unique_ptr<print> d_ecrire;
     std::unique_ptr<observateur> d_observateur;
+    exitMaze d_algoSortie;
 };
 
 
