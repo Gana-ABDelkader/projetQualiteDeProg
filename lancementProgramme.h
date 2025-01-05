@@ -8,6 +8,7 @@
 #include "save.h"
 #include "observateur.h"
 #include "algorithmeSortie.h"
+#include "robot.h"
 
 using fichiers::read;
 using fichiers::print;
@@ -34,7 +35,9 @@ private:
     void labyrintheAmeliore2();
 
     ///Tous les choix d'observateur
-    ///??????
+    void observeAffichage();
+    void observeAvancement();
+    void observeRotation();
 
     ///Le traitement d'initialisation de lire et d'écrire avant d'exécuter les algos
     void traitement();

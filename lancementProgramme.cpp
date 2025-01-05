@@ -108,18 +108,46 @@ int programme::menuChoixObservateur(){
     do
     {
         cout<<"Choix de l'observateur"<<'\n'<<'\n';
+        cout<<"(1) Observateur d'affichage"<<'\n';
+        cout<<"(2) Observateur d'avancement"<<'\n';
+        cout<<"(3) Observateur de rotation"<<'\n';
+        cout<<"(4) quitter le menu"<<endl;
         cout<<endl<<"votre choix : ";
         cin>>choice;
         cout<<endl;
     }
-    while (choice<1 || choice>2);
+    while (choice<1 || choice>4);
     return choice;
 }
 
 //A FAIRE
 void programme::choixObservateur(){
-
+    bool goOn = true;
+    while (goOn)
+    {
+        int choice {menuChoixObservateur()};
+        switch(choice)
+        {
+            case 1 : observeAffichage(); break;
+            case 2 : observeAvancement(); break;
+            case 3 : observeRotation(); break;
+            default: goOn = false;
+        }
+    }
 }
+
+void programme::observeAffichage(){
+    d_observateur = std::make_unique<observateurAffichage>();
+}
+
+void programme::observeAvancement(){
+    d_observateur = std::make_unique<observateurCompteurAvancement>(observateurCompteurAvancement{});
+}
+
+void programme::observeRotation(){
+    d_observateur = std::make_unique<observateurCompteurRotation>(observateurCompteurRotation{});
+}
+
 
 int programme::menuAlgoSortie(){
     int choice;
@@ -169,11 +197,11 @@ void programme::traitement(){
 
 void programme::algorithmeMainDroite(){
     traitement();
-    if(d_lire == nullptr || d_ecrire == nullptr){// && d_observateur == nullptr){
+    if(d_lire == nullptr || d_ecrire == nullptr || d_observateur == nullptr){
         cout<<"Veuillez choisir le terrain et l'observateur avant l'algorithme"<<endl;
     }
     else{
-        d_algoSortie.algorithmeMainDroite(std::move(d_lire),std::move(d_ecrire));
+        d_algoSortie.algorithmeMainDroite(std::move(d_lire),std::move(d_ecrire),std::move(d_observateur));
     }
 }
 

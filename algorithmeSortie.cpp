@@ -24,8 +24,9 @@ void exitMaze::reDirectionRobot(robot& r, const terrain& t) const{
     }
 }
 
-void exitMaze::algoSortieMainDroite(std::unique_ptr<print> ecrire, robot& r, const terrain& t) const{
+void exitMaze::algoSortieMainDroite(std::unique_ptr<print> ecrire, std::unique_ptr<observateur> observateur, robot& r, const terrain& t) const{
     ecrire->printTerrain();
+    observateur->observe(r);
     //Tant que je suis pas dehors
     while(r.positionSurTerrain() != t.caseSortie()){
         position posSuivante = r.calculateNewPosition();
@@ -68,16 +69,17 @@ void exitMaze::algoSortieMainDroite(std::unique_ptr<print> ecrire, robot& r, con
 
         ecrire->mettreRobotAJour(r);
         ecrire->printTerrain();
+        observateur->observe(r);
     }
     std::cout<<std::endl;
 }
 
-void exitMaze::algorithmeMainDroite(std::unique_ptr<read> lire, std::unique_ptr<print> ecrire) const{
+void exitMaze::algorithmeMainDroite(std::unique_ptr<read> lire, std::unique_ptr<print> ecrire, std::unique_ptr<observateur> observateur) const{
     robot r = lire->readTerrain();
     terrain t = r.terrainDeLabyrinthe();
 
     reDirectionRobot(r,t);
-    algoSortieMainDroite(std::move(ecrire), r, t);
+    algoSortieMainDroite(std::move(ecrire), std::move(observateur), r, t);
 }
 
 /*

@@ -21,14 +21,14 @@ position observateur::positionRobot() const
     return d_positionRobot;
 }
 
-void observateurAffichage::observe(const robot& r) 
+void observateurAffichage::observe(const robot& r)
 {
     observateur::observe(r);
     std::cout << "Position du robot : x -> " << positionRobot().positionLigne() << " y -> " << positionRobot().positionColonne() << std::endl;
     std::cout << "Direction du robot : " << directionRobot().valeurDirection() << std::endl;
 }
 
-std::unique_ptr<observateur> observateurAffichage::clone() const 
+std::unique_ptr<observateur> observateurAffichage::clone() const
 {
     return std::make_unique<observateurAffichage>();
 }
@@ -58,7 +58,6 @@ void observateurCompteur::initialiser()
 
 void observateurCompteur::incrementerCompteur()
 {
-    std::cout << "incrementerCompteur" << std::endl;
     d_compteur = d_compteur + 1;
 }
 
