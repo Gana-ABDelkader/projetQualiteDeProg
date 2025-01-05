@@ -102,7 +102,6 @@ void programme::labyrintheAmeliore2(){
 
 }
 
-//A FAIRE
 int programme::menuChoixObservateur(){
     int choice;
     do
