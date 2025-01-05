@@ -34,7 +34,9 @@ private:
     void labyrintheAmeliore2();
 
     ///Tous les choix d'observateur
-    ///??????
+    void observateurAffichage();
+    void observateurCompteurAvancement();
+    void observateurCompteurRotation();
 
     ///Le traitement d'initialisation de lire et d'écrire avant d'exécuter les algos
     void traitement();
