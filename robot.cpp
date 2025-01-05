@@ -103,6 +103,13 @@ bool robot::obstacleAdroite() const
     return robotTemp.detectObstacle(robotTemp.calculateNewPosition());
 }
 
+bool robot::obstacleAgauche() const
+{
+    robot robotTemp = *this;
+    robotTemp.turnLeft();
+    return robotTemp.detectObstacle(robotTemp.calculateNewPosition());
+}
+
 position robot::positionADroite() const
 {
     robot robotTemp = *this;

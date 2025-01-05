@@ -11,18 +11,30 @@ using fichiers::print;
 
 class exitMaze{
 public:
+    virtual ~exitMaze() = default;
     ///Appel de l'Algorithme Main Droite
-    void algorithmeMainDroite(std::unique_ptr<read> lire, std::unique_ptr<print> ecrire, std::unique_ptr<observateur> observateur) const;
+    virtual void exit(std::unique_ptr<read> lire, std::unique_ptr<print> ecrire, std::unique_ptr<observateur> observateur) const = 0;
 
-private:
+protected:
     ///Redirection du robot au cas ou il est mal placé au lancement
     void reDirectionRobot(robot& r, const terrain& t) const;
+};
 
+class mainDroite : public exitMaze{
+public:
+    void exit(std::unique_ptr<read> lire, std::unique_ptr<print> ecrire, std::unique_ptr<observateur> observateur) const override;
+private:
     ///Algorithme Main Droite
     void algoSortieMainDroite(std::unique_ptr<print> ecrire, std::unique_ptr<observateur> observateur, robot& r, const terrain& t) const;
+};
 
-    void instruction1(std::unique_ptr<read> lire) const;
-    void instruction2(std::unique_ptr<read> lire) const;
+class pledge : public exitMaze{
+public:
+    void exit(std::unique_ptr<read> lire, std::unique_ptr<print> ecrire, std::unique_ptr<observateur> observateur) const override;
+private:
+    void instruction1(std::unique_ptr<print> ecrire, std::unique_ptr<observateur> observateur, robot& r, const terrain& t) const;
+    void instruction2(std::unique_ptr<print> ecrire, std::unique_ptr<observateur> observateur, robot& r, const terrain& t) const;
+    void algoPledge(robot& r, const terrain& t, int& compteurChangement) const;
 };
 
 

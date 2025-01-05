@@ -46,11 +46,14 @@ private:
     void algorithmeMainDroite();
     void algorithmePledge();
 
+    ///Lancement du programme
+    void lancementProgramme();
+
     std::unique_ptr<read> d_lire;
     int d_choixTerrain{0};
     std::unique_ptr<print> d_ecrire;
     std::unique_ptr<observateur> d_observateur;
-    exitMaze d_algoSortie;
+    std::unique_ptr<exitMaze> d_algoSortie;
 };
 
 

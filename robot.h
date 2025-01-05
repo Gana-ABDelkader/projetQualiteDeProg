@@ -32,6 +32,7 @@ class robot
     robot& turnLeft()  ;
     robot& turnRight() ;
 
+    bool obstacleAgauche() const;
     bool obstacleAdroite() const;
     position positionADroite() const;
 

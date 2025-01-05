@@ -51,7 +51,7 @@ int programme::menuAffichageTerrain(){
     do
     {
         cout<<"Choix de l'affichage du terrain"<<'\n'<<'\n';
-        cout<<"(1) Afffichage Simple"<<'\n';
+        cout<<"(1) Affichage Simple"<<'\n';
         cout<<"(2) Affichage Amélioré 1"<<'\n';
         cout<<"(3) Affichage Amélioré 2"<<'\n';
         cout<<"(4) quitter le menu"<<endl;
@@ -81,6 +81,9 @@ void programme::choixAffichageTerrain(){
 
 void programme::labyrintheSimple(){
     std::ifstream fIN("TerrainSimple.txt");
+    if (!fIN) {
+    throw std::ios_base::failure("Erreur lors de l'ouverture du fichier !");
+    }
     d_lire = std::make_unique<fichiers::readSimpleAmeliore>(fichiers::readSimpleAmeliore{fIN});
     robot r = d_lire->readTerrain();
     d_ecrire = std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r});
@@ -102,6 +105,7 @@ void programme::labyrintheAmeliore2(){
 
 }
 
+//A FAIRE
 int programme::menuChoixObservateur(){
     int choice;
     do
@@ -187,7 +191,7 @@ void programme::traitement(){
     //de choixAffichageTerrain mais cela ne marche ensuite pas pour l'exit...
     switch(d_choixTerrain)
     {
-        case 0 : d_lire=nullptr; d_ecrire= nullptr; break;
+        case 0 : d_lire=nullptr; d_ecrire= nullptr; d_observateur= nullptr; break;
         case 1 : labyrintheSimple(); break;
         case 2 : labyrintheAmeliore1(); break;
         case 3 : labyrintheAmeliore2(); break;
@@ -195,16 +199,22 @@ void programme::traitement(){
 }
 
 void programme::algorithmeMainDroite(){
-    traitement();
-    if(d_lire == nullptr || d_ecrire == nullptr || d_observateur == nullptr){
-        cout<<"Veuillez choisir le terrain et l'observateur avant l'algorithme"<<endl;
-    }
-    else{
-        d_algoSortie.algorithmeMainDroite(std::move(d_lire),std::move(d_ecrire),std::move(d_observateur));
-    }
+    d_algoSortie = std::make_unique<mainDroite>();
+    lancementProgramme();
 }
 
 //A FAIRE
 void programme::algorithmePledge(){
+    d_algoSortie = std::make_unique<pledge>();
+    lancementProgramme();
+}
 
+void programme::lancementProgramme(){
+    traitement();
+    if(d_lire == nullptr || d_ecrire == nullptr || d_observateur == nullptr){
+        cout<<"Veuillez choisir le terrain et l'observateur avant l'algorithme"<<endl<<endl;
+    }
+    else{
+        d_algoSortie->exit(std::move(d_lire),std::move(d_ecrire),std::move(d_observateur));
+    }
 }
