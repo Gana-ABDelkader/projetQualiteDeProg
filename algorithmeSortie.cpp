@@ -1,5 +1,4 @@
 #include "algorithmeSortie.h"
-#include <windows.h>
 
 void exitMaze::reDirectionRobot(robot& r, const terrain& t) const{
     position posSuivante = r.calculateNewPosition();
@@ -105,7 +104,7 @@ void pledge::instruction1(std::unique_ptr<print> ecrire, std::unique_ptr<observa
 
 void pledge::instruction2(std::unique_ptr<print> ecrire, std::unique_ptr<observateur> observateur, robot& r, const terrain& t) const{
     int compteurChangement{0};
-
+    //J'appelle l'algo une premiere fois pour changer le compteur
     algoPledge(r,t,compteurChangement);
     ecrire->mettreRobotAJour(r);
     ecrire->printTerrain();

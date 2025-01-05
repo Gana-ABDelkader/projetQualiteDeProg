@@ -105,7 +105,6 @@ void programme::labyrintheAmeliore2(){
 
 }
 
-//A FAIRE
 int programme::menuChoixObservateur(){
     int choice;
     do
@@ -123,7 +122,6 @@ int programme::menuChoixObservateur(){
     return choice;
 }
 
-//A FAIRE
 void programme::choixObservateur(){
     bool goOn = true;
     while (goOn)
@@ -203,7 +201,6 @@ void programme::algorithmeMainDroite(){
     lancementProgramme();
 }
 
-//A FAIRE
 void programme::algorithmePledge(){
     d_algoSortie = std::make_unique<pledge>();
     lancementProgramme();

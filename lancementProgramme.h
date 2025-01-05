@@ -50,10 +50,10 @@ private:
     void lancementProgramme();
 
     std::unique_ptr<read> d_lire;
-    int d_choixTerrain{0};
     std::unique_ptr<print> d_ecrire;
     std::unique_ptr<observateur> d_observateur;
     std::unique_ptr<exitMaze> d_algoSortie;
+    int d_choixTerrain{0};
 };
 
 
