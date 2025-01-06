@@ -81,9 +81,6 @@ void programme::choixAffichageTerrain(){
 
 void programme::labyrintheSimple(){
     std::ifstream fIN("TerrainSimple.txt");
-    if (!fIN) {
-    throw std::ios_base::failure("Erreur lors de l'ouverture du fichier !");
-    }
     d_lire = std::make_unique<fichiers::readSimpleAmeliore>(fichiers::readSimpleAmeliore{fIN});
     robot r = d_lire->readTerrain();
     d_ecrire = std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r});
