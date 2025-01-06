@@ -1,6 +1,22 @@
 #include "algorithmeSortie.h"
 
-void exitMaze::reDirectionRobot(robot& r, const terrain& t) const{
+void exitMaze::avance(robot& r){
+    d_manip = std::make_unique<robotForward>();
+    d_manip->move(r);
+}
+
+void exitMaze::tourneADroite(robot& r){
+    d_manip = std::make_unique<robotRight>();
+    d_manip->move(r);
+}
+
+void exitMaze::tourneAGauche(robot& r){
+    d_manip = std::make_unique<robotLeft>();
+    d_manip->move(r);
+}
+
+void exitMaze::reDirectionRobot(robot& r, const terrain& t){
+
     position posSuivante = r.calculateNewPosition();
     bool condition = true;
     if(r.positionSurTerrain() != t.caseSortie()){
@@ -11,164 +27,151 @@ void exitMaze::reDirectionRobot(robot& r, const terrain& t) const{
                     condition = false;
                 }
                 else{
-                    r.turnLeft();
+                    tourneAGauche(r);
                     posSuivante = r.calculateNewPosition();
                 }
             }
             else{
-                r.turnLeft();
+                tourneAGauche(r);
                 posSuivante = r.calculateNewPosition();
             }
         }
     }
 }
 
-void mainDroite::algoSortieMainDroite(std::unique_ptr<print> ecrire, std::unique_ptr<observateur> observateur, robot& r, const terrain& t) const{
+void mainDroite::algoSortieMainDroite(std::unique_ptr<print> ecrire, robot& r, const terrain& t) {
     ecrire->printTerrain();
-    observateur->observe(r);
-    //Tant que je suis pas dehors
     while(r.positionSurTerrain() != t.caseSortie()){
         position posSuivante = r.calculateNewPosition();
-        //Est ce que je peux aller tout droit
         if(r.detectObstacle(posSuivante)){
-            //Si y'a un mur à droite alors je vais à gauche
             if(r.obstacleAdroite()){
-                //La sortie est un obstacle
                 if(posSuivante == t.caseSortie()){
-                    r.setPosition(posSuivante);
+                    avance(r);
                 }
                 else{
-                    //Si la sortie est à droite on y a va sinon on tourne à gauche
                     if(r.positionADroite() == t.caseSortie()){
-                        r.turnRight();
-                        r.setPosition(r.calculateNewPosition());
+                        tourneADroite(r);
+                        avance(r);
                     }
                     else{
-                        r.turnLeft();
+                        tourneAGauche(r);
                     }
                 }
             }
-            //Sinon je vais toujours le plus à droite pour attraper un mur à ma droite
             else{
-                r.turnRight();
-                r.setPosition(r.calculateNewPosition());
+                tourneADroite(r);
+                avance(r);
             }
         }
         else{
-            //Si y'a un mur à droite frocément j'avance
             if(r.obstacleAdroite()){
-
-                r.setPosition(posSuivante);
+                avance(r);
             }
-            //Sinon je vais toujours le plus à droite pour attraper un mur à ma droite
             else{
-                r.turnRight();
-                r.setPosition(r.calculateNewPosition());
+                tourneADroite(r);
+                avance(r);
             }
         }
         ecrire->mettreRobotAJour(r);
         ecrire->printTerrain();
-        observateur->observe(r);
+        Sleep(500);
     }
     std::cout<<std::endl;
 }
 
-void mainDroite::exit(std::unique_ptr<read> lire, std::unique_ptr<print> ecrire, std::unique_ptr<observateur> observateur) const{
+void mainDroite::exit(std::unique_ptr<read> lire, std::unique_ptr<print> ecrire, std::vector<std::unique_ptr<observateur>> observateurs) {
     robot r = lire->readTerrain();
+    r.ajouterObservateurs(std::move(observateurs));
     terrain t = r.terrainDeLabyrinthe();
 
     reDirectionRobot(r,t);
-    algoSortieMainDroite(std::move(ecrire), std::move(observateur), r, t);
+    algoSortieMainDroite(std::move(ecrire), r, t);
 }
 
 
-void pledge::instruction1(std::unique_ptr<print> ecrire, std::unique_ptr<observateur> observateur, robot& r, const terrain& t) const{
+void pledge::instruction1(std::unique_ptr<print> ecrire, robot& r, const terrain& t){
     ecrire->printTerrain();
-    observateur->observe(r);
     if(r.positionSurTerrain() != t.caseSortie()){
          position posSuivante = r.calculateNewPosition();
-    //J'avance tant que je tombe par sur un mur ou sur la sortie
         while(!r.detectObstacle(posSuivante)){
-            r.setPosition(posSuivante);
+            avance(r);
             posSuivante = r.calculateNewPosition();
             ecrire->mettreRobotAJour(r);
             ecrire->printTerrain();
-            observateur->observe(r);
+            Sleep(500);
         }
     }
-    //Si je suis pas dehors je passe à l'instruction 2
     if(r.positionSurTerrain() != t.caseSortie()){
-        instruction2(std::move(ecrire), std::move(observateur), r, t);
+        instruction2(std::move(ecrire), r, t);
     }
 }
 
-void pledge::instruction2(std::unique_ptr<print> ecrire, std::unique_ptr<observateur> observateur, robot& r, const terrain& t) const{
+void pledge::instruction2(std::unique_ptr<print> ecrire, robot& r, const terrain& t){
     int compteurChangement{0};
-    //J'appelle l'algo une premiere fois pour changer le compteur
+
     algoPledge(r,t,compteurChangement);
     ecrire->mettreRobotAJour(r);
     ecrire->printTerrain();
-    observateur->observe(r);
     while(compteurChangement != 0 && r.positionSurTerrain() != t.caseSortie()){
         algoPledge(r,t,compteurChangement);
         ecrire->mettreRobotAJour(r);
         ecrire->printTerrain();
-        observateur->observe(r);
+        Sleep(500);
     }
     if(r.positionSurTerrain() != t.caseSortie()){
-        instruction1(std::move(ecrire), std::move(observateur), r, t);
+        instruction1(std::move(ecrire), r, t);
     }
 }
 
-void pledge::algoPledge(robot& r, const terrain& t, int& compteurChangement) const{
+void pledge::algoPledge(robot& r, const terrain& t, int& compteurChangement){
     position posSuivante = r.calculateNewPosition();
     if(r.detectObstacle(posSuivante)){
         if(r.obstacleAdroite()){
             if(posSuivante == t.caseSortie()){
-                r.setPosition(posSuivante);
+                avance(r);
             }
             else{
                 if(r.positionADroite() == t.caseSortie()){
-                    r.turnRight();
-                    r.setPosition(r.calculateNewPosition());
+                    tourneADroite(r);
+                    avance(r);
                     compteurChangement--;
                 }
                 else{
-                    r.turnLeft();
+                    tourneAGauche(r);
                     compteurChangement++;
                 }
             }
         }
         else{
             if(r.obstacleAgauche()){
-                r.turnRight();
-            r.setPosition(r.calculateNewPosition());
+                tourneADroite(r);
+                avance(r);
             compteurChangement--;
             }
             else{
-                r.turnLeft();
+                tourneAGauche(r);
                 compteurChangement++;
             }
         }
     }
     else{
         if(r.obstacleAdroite()){
-
-            r.setPosition(posSuivante);
+            avance(r);
         }
         else{
-            r.turnRight();
-            r.setPosition(r.calculateNewPosition());
+            tourneADroite(r);
+            avance(r);
             compteurChangement--;
         }
     }
 }
 
-void pledge::exit(std::unique_ptr<read> lire, std::unique_ptr<print> ecrire, std::unique_ptr<observateur> observateur) const{
+void pledge::exit(std::unique_ptr<read> lire, std::unique_ptr<print> ecrire, std::vector<std::unique_ptr<observateur>> observateurs){
     robot r = lire->readTerrain();
     terrain t = r.terrainDeLabyrinthe();
+    r.ajouterObservateurs(std::move(observateurs));
 
     reDirectionRobot(r,t);
-    instruction1(std::move(ecrire), std::move(observateur), r, t);
+    instruction1(std::move(ecrire), r, t);
 }
 

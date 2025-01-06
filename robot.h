@@ -37,6 +37,7 @@ class robot
     position positionADroite() const;
 
     void ajouterObservateur(std::unique_ptr<observateur> o);
+    void ajouterObservateurs(std::vector<std::unique_ptr<observateur>> os);
     void notifieTousLesObservateurs() const ;
 private:
     position d_position;

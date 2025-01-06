@@ -9,22 +9,22 @@ class manipulate
 
     virtual ~manipulate()=default;
 
-    virtual void move(robot& r)=0 ;
+    virtual void move(robot& r) const =0 ;
 };
 
 class robotForward : public manipulate{
-    public : 
-    void move(robot& r) override;
+    public :
+    void move(robot& r) const override;
 };
 
 class robotLeft : public manipulate{
-    public : 
-    void move(robot& r) override;
+    public :
+    void move(robot& r) const override;
 };
 
 class robotRight : public manipulate{
-    public : 
-    void move(robot& r) override;
+    public :
+    void move(robot& r) const override;
 };
 
 #endif //MANIPULATE_H

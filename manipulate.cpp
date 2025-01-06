@@ -1,12 +1,12 @@
 #include"manipulate.h"
 
-void robotForward::move(robot& r){
+void robotForward::move(robot& r) const{
     r.move();
 }
 
-void robotLeft::move(robot& r){
-    /* Changer la direction du robot : 
-    
+void robotLeft::move(robot& r) const{
+    /* Changer la direction du robot :
+
     si droite : haut
     si haut : gauche
     si gauche : bas
@@ -16,9 +16,9 @@ void robotLeft::move(robot& r){
    r.turnLeft();
 }
 
-void robotRight::move(robot& r){
-    /* Changer la direction du robot : 
-    
+void robotRight::move(robot& r) const{
+    /* Changer la direction du robot :
+
     si droite : bas
     si bas : gauche
     si gauche : haut

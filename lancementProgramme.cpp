@@ -10,7 +10,7 @@ using std::endl;
 using std::cin;
 
 programme::programme():
-    d_lire{nullptr}, d_ecrire{nullptr}, d_observateur{nullptr}
+    d_lire{nullptr}, d_ecrire{nullptr}, d_observateurs{}
 {}
 
 void programme::execute(){
@@ -81,6 +81,9 @@ void programme::choixAffichageTerrain(){
 
 void programme::labyrintheSimple(){
     std::ifstream fIN("TerrainSimple.txt");
+    if (!fIN) {
+        throw std::ios_base::failure("Erreur lors de l'ouverture du fichier !");
+    }
     d_lire = std::make_unique<fichiers::readSimpleAmeliore>(fichiers::readSimpleAmeliore{fIN});
     robot r = d_lire->readTerrain();
     d_ecrire = std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r});
@@ -102,6 +105,7 @@ void programme::labyrintheAmeliore2(){
 
 }
 
+//A FAIRE
 int programme::menuChoixObservateur(){
     int choice;
     do
@@ -119,6 +123,7 @@ int programme::menuChoixObservateur(){
     return choice;
 }
 
+//A FAIRE
 void programme::choixObservateur(){
     bool goOn = true;
     while (goOn)
@@ -135,15 +140,15 @@ void programme::choixObservateur(){
 }
 
 void programme::observeAffichage(){
-    d_observateur = std::make_unique<observateurAffichage>();
+    d_observateurs.push_back(std::make_unique<observateurAffichage>());
 }
 
 void programme::observeAvancement(){
-    d_observateur = std::make_unique<observateurCompteurAvancement>(observateurCompteurAvancement{});
+    d_observateurs.push_back(std::make_unique<observateurCompteurAvancement>(observateurCompteurAvancement{}));
 }
 
 void programme::observeRotation(){
-    d_observateur = std::make_unique<observateurCompteurRotation>(observateurCompteurRotation{});
+    d_observateurs.push_back(std::make_unique<observateurCompteurRotation>(observateurCompteurRotation{}));
 }
 
 
@@ -186,7 +191,7 @@ void programme::traitement(){
     //de choixAffichageTerrain mais cela ne marche ensuite pas pour l'exit...
     switch(d_choixTerrain)
     {
-        case 0 : d_lire=nullptr; d_ecrire= nullptr; d_observateur= nullptr; break;
+        case 0 : d_lire=nullptr; d_ecrire= nullptr; break;
         case 1 : labyrintheSimple(); break;
         case 2 : labyrintheAmeliore1(); break;
         case 3 : labyrintheAmeliore2(); break;
@@ -205,10 +210,11 @@ void programme::algorithmePledge(){
 
 void programme::lancementProgramme(){
     traitement();
-    if(d_lire == nullptr || d_ecrire == nullptr || d_observateur == nullptr){
+    if(d_lire == nullptr || d_ecrire == nullptr || d_observateurs.size() == 0){
         cout<<"Veuillez choisir le terrain et l'observateur avant l'algorithme"<<endl<<endl;
     }
     else{
-        d_algoSortie->exit(std::move(d_lire),std::move(d_ecrire),std::move(d_observateur));
+        d_algoSortie->exit(std::move(d_lire),std::move(d_ecrire),std::move(d_observateurs));
+        d_observateurs.clear();
     }
 }

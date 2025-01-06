@@ -30,23 +30,23 @@ std::vector<std::vector<bool>> terrain::labyrinthe() const{
 
 
 bool terrain::estUnMur(const position& p) const{
-    return d_labyrinthe[p.positionLigne()][p.positionColonne()];
+    return d_labyrinthe[static_cast<size_t>(p.positionLigne())][static_cast<size_t>(p.positionColonne())];
 }
 
 void terrain::changeenMur(const position& p){
-    d_labyrinthe[p.positionLigne()][p.positionColonne()] = true ;
+    d_labyrinthe[static_cast<size_t>(p.positionLigne())][static_cast<size_t>(p.positionColonne())] = true ;
 }
 
 int terrain::tailleTableau() const
 {
-    return d_labyrinthe.size();
+    return static_cast<int>(d_labyrinthe.size());
 }
 
 bool terrain::sortDuTableau(const position& p) const
 {
     int i = p.positionLigne();
     int j = p.positionColonne();
-    return i<0 || i>d_labyrinthe.size()-1 || j<0 || j>d_labyrinthe[0].size()-1;
+    return i<0 || i>static_cast<int>(d_labyrinthe.size())-1 || j<0 || j>static_cast<int>(d_labyrinthe[0].size())-1;
 }
 
 terrain terrain::litUnTerrain(fichiers::read& r)

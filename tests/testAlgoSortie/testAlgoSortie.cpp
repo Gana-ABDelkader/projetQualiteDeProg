@@ -41,7 +41,9 @@ TEST_CASE("Test des algos de sortie"){
 
 
     SUBCASE("Le robot parvient à sortir du labyrinthe avec l'algorithme mainDroite"){
+
         SUBCASE("Cas simple labyrinthe de 3x3"){
+
             SUBCASE("Sortie en face de l'entrée de la droite vers la gauche"){
                 std::ifstream fIN("testSimple1.txt");
                 auto lire = std::make_unique<fichiers::readSimpleAmeliore>(fichiers::readSimpleAmeliore{fIN});
@@ -49,7 +51,8 @@ TEST_CASE("Test des algos de sortie"){
                 r.setDirection(direction::DROITE);
                 auto ecrire{std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r})};
                 mainDroite mD;
-                auto obs = std::make_unique<observateurAffichage>();
+                std::vector<std::unique_ptr<observateur>> obs;
+                obs.push_back(std::make_unique<observateurAffichage>());
                 mD.exit(std::move(lire),std::move(ecrire),std::move(obs));
             }
 
@@ -60,7 +63,8 @@ TEST_CASE("Test des algos de sortie"){
                 r.setDirection(direction::GAUCHE);
                 auto ecrire{std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r})};
                 mainDroite mD;
-                auto obs = std::make_unique<observateurAffichage>();
+                std::vector<std::unique_ptr<observateur>> obs;
+                obs.push_back(std::make_unique<observateurAffichage>());
                 mD.exit(std::move(lire),std::move(ecrire),std::move(obs));
             }
 
@@ -71,7 +75,8 @@ TEST_CASE("Test des algos de sortie"){
                 r.setDirection(direction::BAS);
                 auto ecrire{std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r})};
                 mainDroite mD;
-                auto obs = std::make_unique<observateurAffichage>();
+                std::vector<std::unique_ptr<observateur>> obs;
+                obs.push_back(std::make_unique<observateurAffichage>());
                 mD.exit(std::move(lire),std::move(ecrire),std::move(obs));
             }
 
@@ -82,13 +87,15 @@ TEST_CASE("Test des algos de sortie"){
                 r.setDirection(direction::HAUT);
                 auto ecrire{std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r})};
                 mainDroite mD;
-                auto obs = std::make_unique<observateurAffichage>();
+                std::vector<std::unique_ptr<observateur>> obs;
+                obs.push_back(std::make_unique<observateurAffichage>());
                 mD.exit(std::move(lire),std::move(ecrire),std::move(obs));
             }
 
         }
 
         SUBCASE("L'algo fonctionne sur des cas un peu plus réels"){
+
             SUBCASE("L'abyrinthe de 3x3 avec la sortie en bas"){
                 std::ifstream fIN("testIntermediaire1.txt");
                 auto lire = std::make_unique<fichiers::readSimpleAmeliore>(fichiers::readSimpleAmeliore{fIN});
@@ -96,7 +103,8 @@ TEST_CASE("Test des algos de sortie"){
                 r.setDirection(direction::DROITE);
                 auto ecrire{std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r})};
                 mainDroite mD;
-                auto obs = std::make_unique<observateurAffichage>();
+                std::vector<std::unique_ptr<observateur>> obs;
+                obs.push_back(std::make_unique<observateurAffichage>());
                 mD.exit(std::move(lire),std::move(ecrire),std::move(obs));
             }
 
@@ -107,11 +115,15 @@ TEST_CASE("Test des algos de sortie"){
                 r.setDirection(direction::DROITE);
                 auto ecrire{std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r})};
                 mainDroite mD;
-                auto obs = std::make_unique<observateurAffichage>();
+                std::vector<std::unique_ptr<observateur>> obs;
+                obs.push_back(std::make_unique<observateurAffichage>());
                 mD.exit(std::move(lire),std::move(ecrire),std::move(obs));
             }
+
         }
+
         SUBCASE("L'algo fonctionne"){
+
             SUBCASE("L'abyrinthe a deux angles"){
                 std::ifstream fIN("testDifficile.txt");
                 auto lire = std::make_unique<fichiers::readSimpleAmeliore>(fichiers::readSimpleAmeliore{fIN});
@@ -119,7 +131,8 @@ TEST_CASE("Test des algos de sortie"){
                 r.setDirection(direction::HAUT);
                 auto ecrire{std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r})};
                 mainDroite mD;
-                auto obs = std::make_unique<observateurAffichage>();
+                std::vector<std::unique_ptr<observateur>> obs;
+                obs.push_back(std::make_unique<observateurAffichage>());
                 mD.exit(std::move(lire),std::move(ecrire),std::move(obs));
             }
 
@@ -130,9 +143,11 @@ TEST_CASE("Test des algos de sortie"){
                 r.setDirection(direction::GAUCHE);
                 auto ecrire{std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r})};
                 mainDroite mD;
-                auto obs = std::make_unique<observateurAffichage>();
+                std::vector<std::unique_ptr<observateur>> obs;
+                obs.push_back(std::make_unique<observateurAffichage>());
                 mD.exit(std::move(lire),std::move(ecrire),std::move(obs));
             }
+
         }
     }
 
@@ -147,7 +162,8 @@ TEST_CASE("Test des algos de sortie"){
                 r.setDirection(direction::DROITE);
                 auto ecrire{std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r})};
                 pledge pLd;
-                auto obs = std::make_unique<observateurAffichage>();
+                std::vector<std::unique_ptr<observateur>> obs;
+                obs.push_back(std::make_unique<observateurAffichage>());
                 pLd.exit(std::move(lire),std::move(ecrire),std::move(obs));
             }
 
@@ -158,9 +174,11 @@ TEST_CASE("Test des algos de sortie"){
                 r.setDirection(direction::DROITE);
                 auto ecrire{std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r})};
                 pledge pLd;
-                auto obs = std::make_unique<observateurAffichage>();
+                std::vector<std::unique_ptr<observateur>> obs;
+                obs.push_back(std::make_unique<observateurAffichage>());
                 pLd.exit(std::move(lire),std::move(ecrire),std::move(obs));
             }
+
         }
         SUBCASE("L'algo fonctionne"){
 
@@ -171,9 +189,11 @@ TEST_CASE("Test des algos de sortie"){
                 r.setDirection(direction::HAUT);
                 auto ecrire{std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r})};
                 pledge pLd;
-                auto obs = std::make_unique<observateurAffichage>();
+                std::vector<std::unique_ptr<observateur>> obs;
+                obs.push_back(std::make_unique<observateurAffichage>());
                 pLd.exit(std::move(lire),std::move(ecrire),std::move(obs));
             }
+
             SUBCASE("L'abyrinthe a deux angles mais une mauvaise direction de départ"){
                 std::ifstream fIN("testDifficile.txt");
                 auto lire = std::make_unique<fichiers::readSimpleAmeliore>(fichiers::readSimpleAmeliore{fIN});
@@ -181,9 +201,11 @@ TEST_CASE("Test des algos de sortie"){
                 r.setDirection(direction::GAUCHE);
                 auto ecrire{std::make_unique<fichiers::printSimple>(fichiers::printSimple{std::cout,r})};
                 pledge pLd;
-                auto obs = std::make_unique<observateurAffichage>();
+                std::vector<std::unique_ptr<observateur>> obs;
+                obs.push_back(std::make_unique<observateurAffichage>());
                 pLd.exit(std::move(lire),std::move(ecrire),std::move(obs));
             }
+
         }
 
 

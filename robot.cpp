@@ -123,6 +123,13 @@ void robot::ajouterObservateur(std::unique_ptr<observateur> o)
     d_observateurs.back()->observe(*this);
 }
 
+void robot::ajouterObservateurs(std::vector<std::unique_ptr<observateur>> os)
+{
+    for(auto& observateur: os){
+        ajouterObservateur(std::move(observateur));
+    }
+}
+
 void robot::notifieTousLesObservateurs() const
 {
     for(const auto& observateur : d_observateurs) {
