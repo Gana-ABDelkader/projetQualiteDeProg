@@ -16,6 +16,7 @@ using fichiers::print;
 class programme{
 public:
     programme();
+    ///Exécution du programme
     void execute();
 private:
     ///Les différents menu

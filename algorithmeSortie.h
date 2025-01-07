@@ -41,8 +41,11 @@ class pledge : public exitMaze{
 public:
     void exit(std::unique_ptr<read> lire, std::unique_ptr<print> ecrire, std::vector<std::unique_ptr<observateur>> observateurs) override;
 private:
+    ///Instruction 1 de l'algorithe de sortie pledge
     void instruction1(std::unique_ptr<print> ecrire, robot& r, const terrain& t);
+    ///Instruction 2 de l'algorithe de sortie pledge
     void instruction2(std::unique_ptr<print> ecrire, robot& r, const terrain& t);
+    ///Algorithme principal derrière l'utilisation de pledge
     void algoPledge(robot& r, const terrain& t, int& compteurChangement);
 };
 

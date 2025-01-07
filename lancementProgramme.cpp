@@ -92,6 +92,9 @@ void programme::labyrintheSimple(){
 
 void programme::labyrintheAmeliore1(){
     std::ifstream fIN("TerrainAmeliore1.txt");
+    if (!fIN) {
+        throw std::ios_base::failure("Erreur lors de l'ouverture du fichier !");
+    }
     d_lire = std::make_unique<fichiers::readSimpleAmeliore>(fichiers::readSimpleAmeliore{fIN});
     robot r = d_lire->readTerrain();
     d_ecrire = std::make_unique<fichiers::printAmeliore1>(fichiers::printAmeliore1{std::cout,r});
@@ -99,13 +102,15 @@ void programme::labyrintheAmeliore1(){
 
 void programme::labyrintheAmeliore2(){
     std::ifstream fIN("TerrainAmeliore2.txt");
+    if (!fIN) {
+        throw std::ios_base::failure("Erreur lors de l'ouverture du fichier !");
+    }
     d_lire = std::make_unique<fichiers::readAmeliore2>(fichiers::readAmeliore2{fIN});
     robot r = d_lire->readTerrain();
     d_ecrire = std::make_unique<fichiers::printAmeliore2>(fichiers::printAmeliore2{std::cout,r});
 
 }
 
-//A FAIRE
 int programme::menuChoixObservateur(){
     int choice;
     do
@@ -123,7 +128,6 @@ int programme::menuChoixObservateur(){
     return choice;
 }
 
-//A FAIRE
 void programme::choixObservateur(){
     bool goOn = true;
     while (goOn)
@@ -184,11 +188,6 @@ void programme::choixAlgoSortie(){
 }
 
 void programme::traitement(){
-    //Apres plusieurs tests je suis oblige de faire un switch
-    //On dirait que le traitement des variables et l'algo
-    //doivent se faire à la suite.
-    //Je voulais d'abord mettre les switch case du traitement dans le switch case
-    //de choixAffichageTerrain mais cela ne marche ensuite pas pour l'exit...
     switch(d_choixTerrain)
     {
         case 0 : d_lire=nullptr; d_ecrire= nullptr; break;
